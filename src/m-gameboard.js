@@ -48,8 +48,28 @@ class Gameboard {
         Gameboard.endGame();
     };
 
+    getAvailableMoves = () => {
+        const randomMoves = () => {
+            const randomRow = Math.random() * 10;
+            const randomColumn = Math.random() * 10;
+            const randomCoordinates = [randomRow, randomColumn];
+            return randomCoordinates;
+        };
+
+        const evaluateMoves = () => {
+            const tryCoordinates = randomMoves();
+            if (this.board[tryCoordinates[0]][tryCoordinates[1]] === "hit" || this.board[tryCoordinates[0]][tryCoordinates[1]] === "miss") {
+                return evaluateMoves();
+            }
+            return tryCoordinates;
+        };
+        const availableMove = evaluateMoves();
+
+        return availableMove;
+    };
+
     static endGame = () => {
-        // some dom functions about game over
+        console.log("'s all ships are under the water, GG");
     };
 }
 
