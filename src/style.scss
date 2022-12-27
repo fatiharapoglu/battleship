@@ -4,6 +4,7 @@
     --background-primary: rgb(27, 27, 27);
     --font-1: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     --font-2: Verdana, Geneva, Tahoma, sans-serif;
+    --border: 1px solid gray;
 }
 
 * {
@@ -28,4 +29,31 @@ a {
 body {
     min-height: 100vh;
     background-color: var(--background-primary);
+}
+
+.boards {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+    gap: 100px;
+
+    .player-board {
+        display: grid;
+        grid-template-columns: repeat(10, 50px);
+        grid-template-rows: repeat(10, 50px);
+        grid-gap: 1px;
+    }
+
+    .AI-board {
+        display: grid;
+        grid-template-columns: repeat(10, 50px);
+        grid-template-rows: repeat(10, 50px);
+        grid-gap: 1px;
+    }
+
+    .square {
+        outline: var(--border);
+        cursor: pointer;
+    }
 }
