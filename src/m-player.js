@@ -23,3 +23,5 @@ class Player {
         }
     };
 }
+
+export { Player };

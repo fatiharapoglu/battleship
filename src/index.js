@@ -1,3 +1,4 @@
 import { DOM } from "./m-DOM";
 
-DOM.createGameboards();
+// const name = prompt("your name?");
+DOM.initGame(name);
