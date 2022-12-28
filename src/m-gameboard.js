@@ -3,11 +3,11 @@ import { Ship } from "./m-ship";
 class Gameboard {
     constructor(playerName) {
         this.board = Array.from({ length: 10 }, () => Array(10).fill("water"));
-        this.carrier = new Ship(5, "Carrier");
-        this.battleship = new Ship(4, "Battleship");
-        this.destroyer = new Ship(3, "Destroyer");
-        this.submarine = new Ship(3, "Submarine");
-        this.patroller = new Ship(2, "Patrol Boat");
+        this.carrier = new Ship(5, "carrier");
+        this.battleship = new Ship(4, "battleship");
+        this.destroyer = new Ship(3, "destroyer");
+        this.submarine = new Ship(3, "submarine");
+        this.patroller = new Ship(2, "patroller");
         this.player = playerName;
     }
 
@@ -91,11 +91,11 @@ class Gameboard {
         const evaluatePlacedShips = () => {
             let countShips = 0;
             countableBoard.forEach((string) => {
-                if (string === "Carrier"
-                    || string === "Battleship"
-                    || string === "Destroyer"
-                    || string === "Submarine"
-                    || string === "Patrol Boat") {
+                if (string === "carrier"
+                    || string === "battleship"
+                    || string === "destroyer"
+                    || string === "submarine"
+                    || string === "patroller") {
                     countShips++;
                 }
             });

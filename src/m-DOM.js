@@ -10,8 +10,8 @@ class DOM {
 
         startBtnDOM.addEventListener("click", () => {
             const name = nameInputDOM.value;
-            modalDOM.classList.add("hidden");
             this.initGame(name);
+            modalDOM.classList.add("hidden");
         });
     };
 
@@ -24,10 +24,33 @@ class DOM {
 
         computer.board.placeShipsForAI();
 
+        this.placeShipsForPlayer(player);
+
         this.renderGameboardForPlayer(player);
         this.renderGameboardForAI(computer);
 
         this.initEventListenerForSquares(player, computer);
+    };
+
+    static placeShipsForPlayer = (player) => {
+        const placeShipsModalDOM = document.querySelector(".place-ships");
+        placeShipsModalDOM.classList.remove("hidden");
+        const draggableShips = document.querySelectorAll(".draggable");
+
+        const squares = placeShipsModalDOM.querySelectorAll(".square");
+        squares.forEach((square) => {
+            square.addEventListener("drop", (event) => {
+                event.preventDefault();
+                const placedSquareCoordinates = event.target.dataset.id;
+                console.log(placedSquareCoordinates);
+            });
+        });
+        draggableShips.forEach((ship) => {
+            ship.addEventListener("dragstart", (event) => {
+                const placedShip = event.target.classList[0];
+                console.log(placedShip);
+            });
+        });
     };
 
     static initEventListenerForSquares = (player, computer) => {
@@ -43,12 +66,16 @@ class DOM {
     static createGameboards = () => {
         const playerGameboard = document.querySelector(".player-board");
         const computerGameboard = document.querySelector(".AI-board");
+        const placeShipsModal = document.querySelector("#place-ships-modal");
 
         for (let x = 9; x >= 0; x--) {
             for (let y = 0; y <= 9; y++) {
                 const squarePlayer = document.createElement("div");
                 const squareAI = document.createElement("div");
+                const divForPlaceShips = document.createElement("div");
 
+                divForPlaceShips.classList.add("square");
+                divForPlaceShips.dataset.id = `[${x}, ${y}]`;
                 squarePlayer.classList.add("player-square");
                 squareAI.classList.add("AI-square");
                 squarePlayer.classList.add("square");
@@ -59,6 +86,7 @@ class DOM {
                 this.coordinatesWithIDs[`player-[${x}, ${y}]`] = [x, y];
                 this.coordinatesWithIDs[`AI-[${x}, ${y}]`] = [x, y];
 
+                placeShipsModal.appendChild(divForPlaceShips);
                 playerGameboard.appendChild(squarePlayer);
                 computerGameboard.appendChild(squareAI);
             }
@@ -80,11 +108,11 @@ class DOM {
             switch (playerBoard[coordinates[0]][coordinates[1]]) {
             case "water":
                 break;
-            case "Carrier":
-            case "Battleship":
-            case "Destroyer":
-            case "Submarine":
-            case "Patrol Boat":
+            case "carrier":
+            case "battleship":
+            case "destroyer":
+            case "submarine":
+            case "patroller":
             case "hit":
             case "miss":
                 square.textContent = playerBoard[coordinates[0]][coordinates[1]];
@@ -103,11 +131,11 @@ class DOM {
             const coordinates = this.findCoordinates(ID);
             switch (computerBoard[coordinates[0]][coordinates[1]]) {
             case "water":
-            case "Carrier":
-            case "Battleship":
-            case "Destroyer":
-            case "Submarine":
-            case "Patrol Boat":
+            case "carrier":
+            case "battleship":
+            case "destroyer":
+            case "submarine":
+            case "patroller":
                 break;
             case "hit":
             case "miss":

@@ -93,7 +93,58 @@ body {
 }
 
 .hidden {
-  display: none;
+  visibility: hidden;
+}
+
+.place-ships {
+  border: var(--border);
+  border-radius: 10px;
+  background-color: var(--third);
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px;
+}
+.place-ships .player-board {
+  display: grid;
+  grid-template-columns: repeat(10, 25px);
+  grid-template-rows: repeat(10, 25px);
+  grid-gap: 1px;
+}
+.place-ships .square {
+  outline: var(--border);
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.place-ships .carrier {
+  width: 125px;
+  height: 25px;
+  background-color: black;
+}
+.place-ships .battleship {
+  width: 100px;
+  height: 25px;
+  background-color: rgb(199, 154, 154);
+}
+.place-ships .destroyer {
+  width: 75px;
+  height: 25px;
+  background-color: rgb(151, 139, 139);
+}
+.place-ships .submarine {
+  width: 75px;
+  height: 25px;
+  background-color: rgb(255, 229, 229);
+}
+.place-ships .patroller {
+  width: 50px;
+  height: 25px;
+  background-color: rgb(94, 26, 26);
 }
 
 /*# sourceMappingURL=style.css.map */
