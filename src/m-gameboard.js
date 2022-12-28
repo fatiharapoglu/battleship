@@ -105,6 +105,7 @@ class Gameboard {
             this.board = Array.from({ length: 10 }, () => Array(10).fill("water")); // resets board
             return this.placeShipsForAI(); // and try again
         }
+        return true;
     };
 
     endGame = () => {

@@ -3,6 +3,18 @@ import { Player } from "./m-player";
 class DOM {
     static coordinatesWithIDs = {};
 
+    static getName = () => {
+        const modalDOM = document.querySelector(".start");
+        const nameInputDOM = document.querySelector("#input-name");
+        const startBtnDOM = document.querySelector("#start-game");
+
+        startBtnDOM.addEventListener("click", () => {
+            const name = nameInputDOM.value;
+            modalDOM.classList.add("hidden");
+            this.initGame(name);
+        });
+    };
+
     static initGame = (playerName) => {
         this.createGameboards();
 
