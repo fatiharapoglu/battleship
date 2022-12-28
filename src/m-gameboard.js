@@ -55,15 +55,15 @@ class Gameboard {
     };
 
     getAvailableMoves = () => {
-        const randomMoves = () => {
+        const randomCoordinates = () => {
             const randomRow = Math.floor(Math.random() * 10);
             const randomColumn = Math.floor(Math.random() * 10);
-            const randomCoordinates = [randomRow, randomColumn];
-            return randomCoordinates;
+            const coordinates = [randomRow, randomColumn];
+            return coordinates;
         };
 
         const evaluateMoves = () => {
-            const tryCoordinates = randomMoves();
+            const tryCoordinates = randomCoordinates();
             if (this.board[tryCoordinates[0]][tryCoordinates[1]] === "hit" || this.board[tryCoordinates[0]][tryCoordinates[1]] === "miss") {
                 return evaluateMoves();
             }
@@ -72,6 +72,39 @@ class Gameboard {
         const availableMove = evaluateMoves();
 
         return availableMove;
+    };
+
+    placeShipsForAI = () => {
+        const getRandomCoordinates = () => this.getAvailableMoves();
+        const getRandomDirection = () => {
+            const number = Math.floor(Math.random() * 2);
+            return number === 1 ? "horizontal" : "vertical";
+        };
+
+        this.placeShips(getRandomCoordinates(), this.carrier, getRandomDirection());
+        this.placeShips(getRandomCoordinates(), this.battleship, getRandomDirection());
+        this.placeShips(getRandomCoordinates(), this.destroyer, getRandomDirection());
+        this.placeShips(getRandomCoordinates(), this.submarine, getRandomDirection());
+        this.placeShips(getRandomCoordinates(), this.patroller, getRandomDirection());
+
+        const countableBoard = this.board.flat(1);
+        const evaluatePlacedShips = () => {
+            let countShips = 0;
+            countableBoard.forEach((string) => {
+                if (string === "Carrier"
+                    || string === "Battleship"
+                    || string === "Destroyer"
+                    || string === "Submarine"
+                    || string === "Patrol Boat") {
+                    countShips++;
+                }
+            });
+            return countShips;
+        };
+        if (evaluatePlacedShips() !== 17) { // required total legal ship part number is 17
+            this.board = Array.from({ length: 10 }, () => Array(10).fill("water")); // resets board
+            return this.placeShipsForAI(); // and try again
+        }
     };
 
     endGame = () => {

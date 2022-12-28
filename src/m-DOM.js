@@ -10,17 +10,15 @@ class DOM {
         const player = players.human;
         const computer = players.AI;
 
-        player.board.placeShips([0, 0], computer.board.carrier, "vertical");
-        player.board.placeShips([1, 0], computer.board.battleship, "vertical");
-        player.board.placeShips([5, 2], computer.board.destroyer, "vertical");
-        player.board.placeShips([3, 0], computer.board.submarine, "vertical");
-        player.board.placeShips([8, 5], computer.board.patroller, "vertical");
-
-        this.placeForAI(computer);
+        computer.board.placeShipsForAI();
 
         this.renderGameboardForPlayer(player);
         this.renderGameboardForAI(computer);
 
+        this.initEventListenerForSquares(player, computer);
+    };
+
+    static initEventListenerForSquares = (player, computer) => {
         const squares = document.querySelectorAll(".AI-square");
         squares.forEach((square) => square.addEventListener("click", () => {
             if (square.textContent !== "") return;
@@ -59,14 +57,6 @@ class DOM {
         const human = new Player(name);
         const AI = new Player("AI");
         return { human, AI };
-    };
-
-    static placeForAI = (computer) => {
-        computer.board.placeShips([0, 0], computer.board.carrier, "horizontal");
-        computer.board.placeShips([1, 0], computer.board.battleship, "horizontal");
-        computer.board.placeShips([2, 0], computer.board.destroyer, "horizontal");
-        computer.board.placeShips([3, 0], computer.board.submarine, "horizontal");
-        computer.board.placeShips([8, 5], computer.board.patroller, "vertical");
     };
 
     static renderGameboardForPlayer = (player) => {
