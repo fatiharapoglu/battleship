@@ -1,13 +1,14 @@
 import { Ship } from "./m-ship";
 
 class Gameboard {
-    constructor() {
+    constructor(playerName) {
         this.board = Array.from({ length: 10 }, () => Array(10).fill("water"));
         this.carrier = new Ship(5, "Carrier");
         this.battleship = new Ship(4, "Battleship");
         this.destroyer = new Ship(3, "Destroyer");
         this.submarine = new Ship(3, "Submarine");
         this.patroller = new Ship(2, "Patrol Boat");
+        this.player = playerName;
     }
 
     placeShips = (coordinates, ship, direction) => {
@@ -49,7 +50,7 @@ class Gameboard {
             && this.destroyer.isSunk === true
             && this.submarine.isSunk === true
             && this.patroller.isSunk === true) {
-            Gameboard.endGame();
+            this.endGame();
         }
     };
 
@@ -73,8 +74,8 @@ class Gameboard {
         return availableMove;
     };
 
-    static endGame = () => {
-        console.log("'s all ships are under the water, GG");
+    endGame = () => {
+        console.log(`${this.player}'s all ships are under water. GG`);
     };
 }
 

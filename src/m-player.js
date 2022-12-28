@@ -12,7 +12,7 @@ class Player {
 
     constructor(playerName) {
         this.name = playerName;
-        this.board = new Gameboard();
+        this.board = new Gameboard(playerName);
     }
 }
 
