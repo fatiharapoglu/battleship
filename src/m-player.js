@@ -1,28 +1,19 @@
 import { Gameboard } from "./m-gameboard";
 
 class Player {
-    static turn = undefined;
-
-    static computerPlays = (enemy) => {
+    static computerAttacks = (enemy) => {
         const coordinates = enemy.board.getAvailableMoves();
         enemy.board.recieveAttack(coordinates);
-        Player.turn = enemy.name;
+    };
+
+    static playerAttacks = (enemy, coordinates) => {
+        enemy.board.recieveAttack(coordinates);
     };
 
     constructor(playerName) {
         this.name = playerName;
         this.board = new Gameboard();
     }
-
-    attack = (enemy, coordinates) => {
-        Player.turn = this.name;
-        if (this.name === Player.turn) {
-            enemy.board.recieveAttack(coordinates);
-            Player.turn = "AI";
-        } else {
-            Player.computerPlays(enemy);
-        }
-    };
 }
 
 export { Player };

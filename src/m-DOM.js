@@ -23,10 +23,10 @@ class DOM {
 
         const squares = document.querySelectorAll(".AI-square");
         squares.forEach((square) => square.addEventListener("click", () => {
+            if (square.textContent !== "") return;
             const ID = square.dataset.id;
             const coordinates = this.findCoordinates(ID);
-            player.attack(computer, coordinates);
-            this.renderGameboardForAI(computer);
+            this.playOneRoundForEach(player, computer, coordinates);
         }));
     };
 
@@ -122,6 +122,13 @@ class DOM {
     static findID = (coordinates) => {
         const ID = Object.keys(this.coordinatesWithIDs).find((key) => this.coordinatesWithIDs[key] === coordinates);
         return ID;
+    };
+
+    static playOneRoundForEach = (player, computer, coordinates) => {
+        Player.playerAttacks(computer, coordinates);
+        this.renderGameboardForAI(computer);
+        Player.computerAttacks(player);
+        this.renderGameboardForPlayer(player);
     };
 }
 
