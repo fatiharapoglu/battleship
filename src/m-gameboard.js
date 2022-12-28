@@ -30,28 +30,33 @@ class Gameboard {
         }
     };
 
-    receiveAttack = (coordinates) => {
-        if (this.board[coordinates] === "miss" || this.board[coordinates] === "hit") return;
-        if (this.board[coordinates] === "water") {
-            this.board[coordinates] = "miss";
+    recieveAttack = (coordinates) => {
+        if (this.board[coordinates[0]][coordinates[1]] === "miss" || this.board[coordinates[0]][coordinates[1]] === "hit") return;
+        if (this.board[coordinates[0]][coordinates[1]] === "water") {
+            this.board[coordinates[0]][coordinates[1]] = "miss";
         } else {
-            const name = this.board[coordinates];
-            this.board[coordinates] = "hit";
-            const target = this.find((ship) => ship.name === name);
-            target.hit();
-            checkIsGame();
+            const name = this.board[coordinates[0]][coordinates[1]];
+            this.board[coordinates[0]][coordinates[1]] = "hit";
+            const target = Object.keys(this).find((key) => this[key].name === name);
+            this[target].hit();
+            this.checkIsGame();
         }
     };
 
     checkIsGame = () => {
-        if (this.some((ship) => ship.isSunk !== true)) return;
-        Gameboard.endGame();
+        if (this.carrier.isSunk === true
+            && this.battleship.isSunk === true
+            && this.destroyer.isSunk === true
+            && this.submarine.isSunk === true
+            && this.patroller.isSunk === true) {
+            Gameboard.endGame();
+        }
     };
 
     getAvailableMoves = () => {
         const randomMoves = () => {
-            const randomRow = Math.random() * 10;
-            const randomColumn = Math.random() * 10;
+            const randomRow = Math.floor(Math.random() * 10);
+            const randomColumn = Math.floor(Math.random() * 10);
             const randomCoordinates = [randomRow, randomColumn];
             return randomCoordinates;
         };

@@ -15,6 +15,7 @@ class Player {
     }
 
     attack = (enemy, coordinates) => {
+        Player.turn = this.name;
         if (this.name === Player.turn) {
             enemy.board.recieveAttack(coordinates);
             Player.turn = "AI";
