@@ -110,16 +110,24 @@ body {
     display: flex;
     align-items: center;
     position: absolute;
-    top: 35%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     padding: 20px;
 
     .player-board {
         display: grid;
-        grid-template-columns: repeat(10, 25px);
-        grid-template-rows: repeat(10, 25px);
+        grid-template-columns: repeat(10, 50px);
+        grid-template-rows: repeat(10, 50px);
         grid-gap: 1px;
+    }
+
+    .ships {
+        display: grid;
+        grid-template-columns: repeat(5, 50px);
+        grid-template-rows: repeat(5, 50px);
+        grid-gap: 1px;
+        grid-auto-flow: column;
     }
 
     .square {
@@ -131,29 +139,51 @@ body {
     }
 
     .carrier {
-        width: 125px;
-        height: 25px;
+        width: 250px;
+        height: 50px;
         background-color: black;
     }
 
     .battleship {
-        width: 100px;
-        height: 25px;
+        width: 200px;
+        height: 50px;
         background-color: rgb(199, 154, 154);
     }
+
     .destroyer {
-        width: 75px;
-        height: 25px;
+        width: 150px;
+        height: 50px;
         background-color: rgb(151, 139, 139);
     }
+
     .submarine {
-        width: 75px;
-        height: 25px;
+        width: 150px;
+        height: 50px;
         background-color: rgb(255, 229, 229);
     }
+
     .patroller {
-        width: 50px;
-        height: 25px;
+        width: 100px;
+        height: 50px;
         background-color: rgb(94, 26, 26);
     }
+}
+
+.drop-active {
+    border-color: rgb(163, 112, 112);
+}
+
+.drop-target {
+    background-color: #29e;
+    border-color: #fff;
+    border-style: solid;
+}
+
+.draggable.can-drop {
+    color: #000;
+    background-color: #4e4;
+}
+
+.rotate {
+    transform: rotate(90deg);
 }

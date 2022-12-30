@@ -36,37 +36,58 @@ class DOM {
     static placeShipsForPlayer = (player) => {
         const placeShipsModalDOM = document.querySelector(".place-ships");
         placeShipsModalDOM.classList.remove("hidden");
-        const ships = document.querySelectorAll(".draggable");
-        let x = 0;
-        let y = 0;
-        ships.forEach((ship) => {
-            interact(ship)
-                .draggable({
-                    modifiers: [
-                        interact.modifiers.snap({
-                            targets: [
-                                interact.snappers.grid({ x: 10, y: 10 }),
-                            ],
-                            range: 10,
-                            relativePoints: [{ x: 0, y: 0 }],
-                        }),
-                        interact.modifiers.restrict({
-                            restriction: ship,
-                            elementRect: {
-                                top: 0, left: 0, bottom: 1, right: 1,
-                            },
-                            endOnly: true,
-                        }),
-                    ],
-                    inertia: true,
-                })
-                .on("dragmove", (event) => {
-                    x += event.dx;
-                    y += event.dy;
 
-                    event.target.style.transform = `translate(${x}px, ${y}px)`;
-                });
+        const dragMoveListener = (event) => {
+            const eTarget = event.target;
+            const x = (parseFloat(eTarget.getAttribute("data-x")) || 0) + event.dx;
+            const y = (parseFloat(eTarget.getAttribute("data-y")) || 0) + event.dy;
+            eTarget.style.transform = `translate(${x}px, ${y}px)`;
+            eTarget.setAttribute("data-x", x);
+            eTarget.setAttribute("data-y", y);
+        };
+
+        interact(".dropzone").dropzone({
+            accept: ".draggable",
+            overlap: 0.1,
+
+            ondropactivate(event) {
+                event.target.classList.add("drop-active");
+            },
+            ondragenter(event) {
+                const draggableElement = event.relatedTarget;
+                const dropzoneElement = event.target;
+                dropzoneElement.classList.add("drop-target");
+                draggableElement.classList.add("can-drop");
+            },
+            ondragleave(event) {
+                event.target.classList.remove("drop-target");
+                event.relatedTarget.classList.remove("can-drop");
+            },
+            ondrop(event) {
+                event.relatedTarget.textContent = "Dropped";
+                console.log(event.target);
+            },
+            ondropdeactivate(event) {
+                event.target.classList.remove("drop-active");
+                event.target.classList.remove("drop-target");
+            },
         });
+
+        interact(".draggable")
+            .draggable({
+                inertia: true,
+                modifiers: [
+                    interact.modifiers.restrictRect({
+                        restriction: ".place-ships",
+                        endOnly: true,
+                    }),
+                ],
+                autoScroll: true,
+                listeners: { move: dragMoveListener },
+            })
+            .on("doubletap", (event) => {
+                event.currentTarget.classList.add("rotate");
+            });
     };
 
     static initEventListenerForSquares = (player, computer) => {
@@ -91,8 +112,8 @@ class DOM {
                 const divForPlaceShips = document.createElement("div");
 
                 divForPlaceShips.classList.add("square");
+                divForPlaceShips.classList.add("dropzone");
                 divForPlaceShips.dataset.id = `[${x}, ${y}]`;
-                divForPlaceShips.setAttribute("dropzone", "move");
                 squarePlayer.classList.add("player-square");
                 squareAI.classList.add("AI-square");
                 squarePlayer.classList.add("square");
