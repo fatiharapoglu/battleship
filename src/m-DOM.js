@@ -36,21 +36,36 @@ class DOM {
     static placeShipsForPlayer = (player) => {
         const placeShipsModalDOM = document.querySelector(".place-ships");
         placeShipsModalDOM.classList.remove("hidden");
-        const draggableShips = document.querySelectorAll(".draggable");
+        const ships = document.querySelectorAll(".draggable");
+        let x = 0;
+        let y = 0;
+        ships.forEach((ship) => {
+            interact(ship)
+                .draggable({
+                    modifiers: [
+                        interact.modifiers.snap({
+                            targets: [
+                                interact.snappers.grid({ x: 10, y: 10 }),
+                            ],
+                            range: 10,
+                            relativePoints: [{ x: 0, y: 0 }],
+                        }),
+                        interact.modifiers.restrict({
+                            restriction: ship,
+                            elementRect: {
+                                top: 0, left: 0, bottom: 1, right: 1,
+                            },
+                            endOnly: true,
+                        }),
+                    ],
+                    inertia: true,
+                })
+                .on("dragmove", (event) => {
+                    x += event.dx;
+                    y += event.dy;
 
-        const squares = placeShipsModalDOM.querySelectorAll(".square");
-        squares.forEach((square) => {
-            square.addEventListener("drop", (event) => {
-                event.preventDefault();
-                const placedSquareCoordinates = event.target.dataset.id;
-                console.log(placedSquareCoordinates);
-            });
-        });
-        draggableShips.forEach((ship) => {
-            ship.addEventListener("dragstart", (event) => {
-                const placedShip = event.target.classList[0];
-                console.log(placedShip);
-            });
+                    event.target.style.transform = `translate(${x}px, ${y}px)`;
+                });
         });
     };
 
@@ -77,6 +92,7 @@ class DOM {
 
                 divForPlaceShips.classList.add("square");
                 divForPlaceShips.dataset.id = `[${x}, ${y}]`;
+                divForPlaceShips.setAttribute("dropzone", "move");
                 squarePlayer.classList.add("player-square");
                 squareAI.classList.add("AI-square");
                 squarePlayer.classList.add("square");
