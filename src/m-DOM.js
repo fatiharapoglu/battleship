@@ -1,3 +1,4 @@
+import interact from "interactjs";
 import { Player } from "./m-player";
 
 class DOM {
