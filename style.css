@@ -101,12 +101,13 @@ body {
   border-radius: 10px;
   background-color: var(--third);
   display: flex;
+  flex-direction: column;
   align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  padding: 20px;
+  padding: 10px;
 }
 .place-ships .player-board {
   display: grid;
@@ -120,6 +121,7 @@ body {
   grid-template-rows: repeat(5, 50px);
   grid-gap: 1px;
   grid-auto-flow: column;
+  padding: 10px;
 }
 .place-ships .square {
   outline: var(--border);
@@ -129,28 +131,18 @@ body {
   align-items: center;
 }
 .place-ships .carrier {
-  width: 250px;
-  height: 50px;
   background-color: black;
 }
 .place-ships .battleship {
-  width: 200px;
-  height: 50px;
   background-color: rgb(199, 154, 154);
 }
 .place-ships .destroyer {
-  width: 150px;
-  height: 50px;
   background-color: rgb(151, 139, 139);
 }
 .place-ships .submarine {
-  width: 150px;
-  height: 50px;
   background-color: rgb(255, 229, 229);
 }
 .place-ships .patroller {
-  width: 100px;
-  height: 50px;
   background-color: rgb(94, 26, 26);
 }
 
@@ -167,10 +159,6 @@ body {
 .draggable.can-drop {
   color: #000;
   background-color: #4e4;
-}
-
-.rotate {
-  transform: rotate(90deg);
 }
 
 /*# sourceMappingURL=style.css.map */
