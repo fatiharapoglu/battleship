@@ -145,6 +145,16 @@ body {
 .place-ships .patroller {
   background-color: rgb(94, 26, 26);
 }
+.place-ships button {
+  background-color: inherit;
+  border: none;
+  padding: 15px;
+  color: var(--secondary);
+  position: absolute;
+  bottom: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+}
 
 .drop-active {
   border-color: rgb(163, 112, 112);

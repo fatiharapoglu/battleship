@@ -36,6 +36,9 @@ class DOM {
     static placeShipsForPlayer = (player) => {
         const placeShipsModalDOM = document.querySelector(".place-ships");
         placeShipsModalDOM.classList.remove("hidden");
+        const placeShipsBtnDOM = document.querySelector("#place-ships-btn");
+
+        const coordinatesWithShips = {};
 
         const dragMoveListener = (event) => {
             const eTarget = event.target;
@@ -48,7 +51,7 @@ class DOM {
 
         interact(".dropzone").dropzone({
             accept: ".draggable",
-            overlap: 0.15,
+            overlap: 0.19,
             ondropactivate(event) {
                 event.target.classList.add("drop-active");
             },
@@ -64,7 +67,11 @@ class DOM {
             },
             ondrop(event) {
                 event.relatedTarget.textContent = "Dropped";
-                console.log(event.target);
+                const endPoint = event.target.dataset.id;
+                const shipName = event.relatedTarget.classList[0];
+                const direction = event.relatedTarget.classList[2];
+                coordinatesWithShips[shipName] = { endPoint, direction };
+                console.log(coordinatesWithShips);
             },
             ondropdeactivate(event) {
                 event.target.classList.remove("drop-active");
@@ -102,7 +109,12 @@ class DOM {
                 const height = event.currentTarget.style.height;
                 event.currentTarget.style.width = height;
                 event.currentTarget.style.height = width;
+                event.currentTarget.classList.toggle("vertical");
+                event.currentTarget.classList.toggle("horizontal");
             });
+
+        placeShipsBtnDOM.addEventListener("click", () => {
+        });
     };
 
     static initEventListenerForSquares = (player, computer) => {

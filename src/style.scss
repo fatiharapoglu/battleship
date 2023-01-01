@@ -159,6 +159,17 @@ body {
     .patroller {
         background-color: rgb(94, 26, 26);
     }
+
+    button {
+        background-color: inherit;
+        border: none;
+        padding: 15px;
+        color: var(--secondary);
+        position: absolute;
+        bottom: -50px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 .drop-active {
