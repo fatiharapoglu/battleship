@@ -15,6 +15,7 @@
             "error",
             "double"
         ],
-        "indent": ["error", 4]
+        "indent": ["error", 4],
+        "prefer-destructuring": "off"
     }
 }

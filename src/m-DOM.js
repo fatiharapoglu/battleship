@@ -48,8 +48,7 @@ class DOM {
 
         interact(".dropzone").dropzone({
             accept: ".draggable",
-            overlap: 0.1,
-
+            overlap: 0.3,
             ondropactivate(event) {
                 event.target.classList.add("drop-active");
             },
@@ -77,16 +76,32 @@ class DOM {
             .draggable({
                 inertia: true,
                 modifiers: [
+                    interact.modifiers.snap({
+                        targets: [
+                            interact.snappers.grid({ x: 51, y: 51 }),
+                        ],
+                        range: Infinity,
+                        offset: { x: 5, y: 21 },
+                        relativePoints: [
+                            { x: 0, y: 0 },
+                        ],
+                    }),
                     interact.modifiers.restrictRect({
                         restriction: ".place-ships",
-                        endOnly: true,
+                        elementRect: {
+                            top: 0, left: 0, bottom: 1, right: 1,
+                        },
+                        endOnly: false,
                     }),
                 ],
                 autoScroll: true,
                 listeners: { move: dragMoveListener },
             })
             .on("doubletap", (event) => {
-                event.currentTarget.classList.add("rotate");
+                const width = event.currentTarget.style.width;
+                const height = event.currentTarget.style.height;
+                event.currentTarget.style.width = height;
+                event.currentTarget.style.height = width;
             });
     };
 
@@ -105,8 +120,8 @@ class DOM {
         const computerGameboard = document.querySelector(".AI-board");
         const placeShipsModal = document.querySelector("#place-ships-modal");
 
-        for (let x = 9; x >= 0; x--) {
-            for (let y = 0; y <= 9; y++) {
+        for (let y = 9; y >= 0; y--) {
+            for (let x = 0; x <= 9; x++) {
                 const squarePlayer = document.createElement("div");
                 const squareAI = document.createElement("div");
                 const divForPlaceShips = document.createElement("div");
