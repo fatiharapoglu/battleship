@@ -41,12 +41,43 @@ class DOM {
         const coordinatesWithShips = {};
 
         const dragMoveListener = (event) => {
-            const eTarget = event.target;
-            const x = (parseFloat(eTarget.getAttribute("data-x")) || 0) + event.dx;
-            const y = (parseFloat(eTarget.getAttribute("data-y")) || 0) + event.dy;
-            eTarget.style.transform = `translate(${x}px, ${y}px)`;
-            eTarget.setAttribute("data-x", x);
-            eTarget.setAttribute("data-y", y);
+            const target = event.target;
+            const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
+            const y = (parseFloat(target.getAttribute("data-y")) || 0) + event.dy;
+            target.style.transform = `translate(${x}px, ${y}px)`;
+            target.setAttribute("data-x", x);
+            target.setAttribute("data-y", y);
+        };
+
+        const findStartPoint = (coordinates, direction, shipName) => {
+            const array = JSON.parse(coordinates);
+            let length;
+            switch (shipName) {
+            case "carrier":
+                length = 5;
+                break;
+            case "battleship":
+                length = 4;
+                break;
+            case "destroyer":
+            case "submarine":
+                length = 3;
+                break;
+            case "patroller":
+                length = 2;
+                break;
+            default:
+                console.log("error");
+            }
+            console.log(length);
+
+            if (direction === "horizontal") {
+                console.log(array);
+                const startPoint = coordinates[0] - length;
+                console.log(coordinates[0]);
+            } else {
+                console.log(direction);
+            }
         };
 
         interact(".dropzone").dropzone({
@@ -70,7 +101,8 @@ class DOM {
                 const endPoint = event.target.dataset.id;
                 const shipName = event.relatedTarget.classList[0];
                 const direction = event.relatedTarget.classList[2];
-                coordinatesWithShips[shipName] = { endPoint, direction };
+                const startPoint = findStartPoint(endPoint, direction, shipName);
+                coordinatesWithShips[shipName] = { startPoint, direction };
                 console.log(coordinatesWithShips);
             },
             ondropdeactivate(event) {
@@ -114,7 +146,13 @@ class DOM {
             });
 
         placeShipsBtnDOM.addEventListener("click", () => {
+            this.checkPlaceShipsValidity(coordinatesWithShips);
         });
+    };
+
+    static checkPlaceShipsValidity = (coordinatesWithShips) => {
+        if (Object.keys(coordinatesWithShips).length <= 4) return false;
+        console.log(coordinatesWithShips);
     };
 
     static initEventListenerForSquares = (player, computer) => {
