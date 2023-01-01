@@ -48,7 +48,7 @@ class DOM {
 
         interact(".dropzone").dropzone({
             accept: ".draggable",
-            overlap: 0.3,
+            overlap: 0.15,
             ondropactivate(event) {
                 event.target.classList.add("drop-active");
             },
@@ -81,7 +81,7 @@ class DOM {
                             interact.snappers.grid({ x: 51, y: 51 }),
                         ],
                         range: Infinity,
-                        offset: { x: 5, y: 21 },
+                        offset: { x: 5, y: 5 },
                         relativePoints: [
                             { x: 0, y: 0 },
                         ],

@@ -97,12 +97,10 @@ body {
 }
 
 .place-ships {
-  border: var(--border);
   border-radius: 10px;
   background-color: var(--third);
   display: flex;
   flex-direction: column;
-  align-items: center;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -117,11 +115,13 @@ body {
 }
 .place-ships .ships {
   display: grid;
-  grid-template-columns: repeat(5, 50px);
   grid-template-rows: repeat(5, 50px);
-  grid-gap: 1px;
+  grid-gap: 52px;
   grid-auto-flow: column;
-  padding: 10px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  justify-items: center;
 }
 .place-ships .square {
   outline: var(--border);
