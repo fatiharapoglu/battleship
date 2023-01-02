@@ -51,33 +51,32 @@ class DOM {
 
         const findStartPoint = (coordinates, direction, shipName) => {
             const array = JSON.parse(coordinates);
+
             let length;
             switch (shipName) {
             case "carrier":
-                length = 5;
+                length = 4;
                 break;
             case "battleship":
-                length = 4;
+                length = 3;
                 break;
             case "destroyer":
             case "submarine":
-                length = 3;
+                length = 2;
                 break;
             case "patroller":
-                length = 2;
+                length = 1;
                 break;
             default:
                 console.log("error");
             }
-            console.log(length);
 
             if (direction === "horizontal") {
-                console.log(array);
-                const startPoint = coordinates[0] - length;
-                console.log(coordinates[0]);
-            } else {
-                console.log(direction);
+                const startPoint = array[0] - length;
+                return [startPoint, array[1]];
             }
+            const startPoint = array[1] + length;
+            return [array[0], startPoint];
         };
 
         interact(".dropzone").dropzone({
@@ -98,12 +97,12 @@ class DOM {
             },
             ondrop(event) {
                 event.relatedTarget.textContent = "Dropped";
-                const endPoint = event.target.dataset.id;
+                let endPoint = event.target.dataset.id;
                 const shipName = event.relatedTarget.classList[0];
                 const direction = event.relatedTarget.classList[2];
                 const startPoint = findStartPoint(endPoint, direction, shipName);
-                coordinatesWithShips[shipName] = { startPoint, direction };
-                console.log(coordinatesWithShips);
+                endPoint = JSON.parse(endPoint);
+                coordinatesWithShips[shipName] = { startPoint, endPoint, direction };
             },
             ondropdeactivate(event) {
                 event.target.classList.remove("drop-active");
@@ -146,13 +145,50 @@ class DOM {
             });
 
         placeShipsBtnDOM.addEventListener("click", () => {
-            this.checkPlaceShipsValidity(coordinatesWithShips);
+            if (this.checkPlaceShipsValidity(coordinatesWithShips) === false) {
+
+            }
         });
     };
 
     static checkPlaceShipsValidity = (coordinatesWithShips) => {
         if (Object.keys(coordinatesWithShips).length <= 4) return false;
-        console.log(coordinatesWithShips);
+
+        const placeShipsModal = document.querySelector("#place-ships-modal");
+        const dropzones = placeShipsModal.querySelectorAll(".dropzone");
+        const occupiedCoordinates = [];
+
+        dropzones.forEach((dropzone) => {
+            const condition = Object.keys(coordinatesWithShips).filter(
+                (key) => JSON.stringify(coordinatesWithShips[key].startPoint)
+                  === JSON.stringify(JSON.parse(dropzone.dataset.id)),
+            );
+
+            if (condition.length !== 0) {
+                const shipObj = coordinatesWithShips[condition[0]];
+                if (shipObj.direction === "horizontal") {
+                    console.log(shipObj);
+                    for (let i = shipObj.startPoint[0]; i <= shipObj.endPoint[0]; i++) {
+                        const coordinates = `[${i}, ${shipObj.endPoint[1]}]`;
+                        occupiedCoordinates.push(coordinates);
+                    }
+                } else {
+                    for (let i = shipObj.endPoint[1]; i <= shipObj.startPoint[1]; i++) {
+                        const coordinates = `[${shipObj.endPoint[0]}, ${i}]`;
+                        occupiedCoordinates.push(coordinates);
+                    }
+                }
+            }
+        });
+
+        const duplicates = occupiedCoordinates.filter(
+            (sub, index, self) => index !== self.findIndex((t) => t === sub),
+        );
+
+        if (duplicates.length !== 0 || occupiedCoordinates.length !== 17) {
+            return false;
+        }
+        return true;
     };
 
     static initEventListenerForSquares = (player, computer) => {
