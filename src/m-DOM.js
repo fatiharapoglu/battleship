@@ -25,18 +25,14 @@ class DOM {
 
         computer.board.placeShipsForAI();
 
-        this.placeShipsForPlayer(player);
-
-        this.renderGameboardForPlayer(player);
-        this.renderGameboardForAI(computer);
+        this.placeShipsForPlayer(player, computer);
 
         this.initEventListenerForSquares(player, computer);
     };
 
-    static placeShipsForPlayer = (player) => {
+    static placeShipsForPlayer = (player, computer) => {
         const placeShipsModalDOM = document.querySelector(".place-ships");
         placeShipsModalDOM.classList.remove("hidden");
-        const placeShipsBtnDOM = document.querySelector("#place-ships-btn");
 
         const coordinatesWithShips = {};
 
@@ -144,9 +140,20 @@ class DOM {
                 event.currentTarget.classList.toggle("horizontal");
             });
 
+        const placeShipsBtnDOM = document.querySelector("#place-ships-btn");
         placeShipsBtnDOM.addEventListener("click", () => {
             if (this.checkPlaceShipsValidity(coordinatesWithShips) === false) {
                 this.snackbar("Ship placement is not correct, please try again.");
+            } else {
+                const occupiedCoordinatesWithShips = this.checkPlaceShipsValidity(coordinatesWithShips);
+                Object.keys(occupiedCoordinatesWithShips).forEach((ship) => {
+                    const direction = occupiedCoordinatesWithShips[ship].direction;
+                    const coordinates = occupiedCoordinatesWithShips[ship].startPoint;
+                    const name = ship;
+                    player.board.placeShips(coordinates, player.board[name], direction);
+                });
+                this.renderGameboardForPlayer(player);
+                this.renderGameboardForAI(computer);
             }
         });
     };
@@ -157,6 +164,10 @@ class DOM {
         const placeShipsModal = document.querySelector("#place-ships-modal");
         const dropzones = placeShipsModal.querySelectorAll(".dropzone");
         const occupiedCoordinates = [];
+        const occupiedCoordinatesWithShips = coordinatesWithShips;
+        Object.keys(occupiedCoordinatesWithShips).forEach((key) => {
+            occupiedCoordinatesWithShips[key].coordinates = [];
+        });
 
         dropzones.forEach((dropzone) => {
             const condition = Object.keys(coordinatesWithShips).filter(
@@ -166,16 +177,18 @@ class DOM {
 
             if (condition.length !== 0) {
                 const shipObj = coordinatesWithShips[condition[0]];
+                const shipName = condition[0];
                 if (shipObj.direction === "horizontal") {
-                    console.log(shipObj);
                     for (let i = shipObj.startPoint[0]; i <= shipObj.endPoint[0]; i++) {
                         const coordinates = `[${i}, ${shipObj.endPoint[1]}]`;
                         occupiedCoordinates.push(coordinates);
+                        occupiedCoordinatesWithShips[shipName].coordinates.push([i, shipObj.endPoint[1]]);
                     }
                 } else {
                     for (let i = shipObj.endPoint[1]; i <= shipObj.startPoint[1]; i++) {
                         const coordinates = `[${shipObj.endPoint[0]}, ${i}]`;
                         occupiedCoordinates.push(coordinates);
+                        occupiedCoordinatesWithShips[shipName].coordinates.push([shipObj.endPoint[0], i]);
                     }
                 }
             }
@@ -188,7 +201,7 @@ class DOM {
         if (duplicates.length !== 0 || occupiedCoordinates.length !== 17) {
             return false;
         }
-        return true;
+        return occupiedCoordinatesWithShips;
     };
 
     static initEventListenerForSquares = (player, computer) => {

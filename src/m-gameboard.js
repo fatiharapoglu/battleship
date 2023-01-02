@@ -16,18 +16,18 @@ class Gameboard {
         const width = ship.length;
         const placeholder = ship.name;
         if (direction === "horizontal") {
-            const row = placed[0];
-            const columnStart = placed[1];
-            this.board[row].fill(placeholder, columnStart, (columnStart + width));
-        } else if (direction === "vertical") {
-            const column = placed[0];
-            const rowStart = placed[1];
-            const mappedColumn = this.board.map((row) => row[column]).fill(placeholder, rowStart, (rowStart + width));
+            const x = placed[0];
+            const y = placed[1];
+            const mapped = this.board.map((row) => row[y]).fill(placeholder, x, (x + width));
             let i = 0;
             this.board.forEach((row) => {
-                row[column] = mappedColumn[i];
+                row[y] = mapped[i];
                 i++;
             });
+        } else if (direction === "vertical") {
+            const x = placed[0];
+            const y = placed[1];
+            this.board[x].fill(placeholder, (y - width + 1), (y + 1));
         }
     };
 
