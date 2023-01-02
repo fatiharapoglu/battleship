@@ -146,7 +146,7 @@ class DOM {
 
         placeShipsBtnDOM.addEventListener("click", () => {
             if (this.checkPlaceShipsValidity(coordinatesWithShips) === false) {
-
+                this.snackbar("Ship placement is not correct, please try again.");
             }
         });
     };
@@ -298,6 +298,15 @@ class DOM {
         this.renderGameboardForAI(computer);
         Player.computerAttacks(player);
         this.renderGameboardForPlayer(player);
+    };
+
+    static snackbar = (text) => { // snackbar alert settings
+        const snackbarDOM = document.getElementById("snackbar");
+        snackbarDOM.textContent = text;
+        snackbarDOM.classList.add("show");
+        setTimeout(() => {
+            snackbarDOM.classList.remove("show");
+        }, 3000);
     };
 }
 
