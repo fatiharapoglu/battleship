@@ -24,9 +24,7 @@ class DOM {
         const computer = players.AI;
 
         computer.board.placeShipsForAI();
-
         this.placeShipsForPlayer(player, computer);
-
         this.initEventListenerForSquares(player, computer);
     };
 
@@ -154,6 +152,8 @@ class DOM {
                 });
                 this.renderGameboardForPlayer(player);
                 this.renderGameboardForAI(computer);
+                placeShipsModalDOM.classList.add("hidden");
+                document.querySelector(".boards").classList.remove("hidden");
             }
         });
     };
