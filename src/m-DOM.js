@@ -141,7 +141,7 @@ class DOM {
         const placeShipsBtnDOM = document.querySelector("#place-ships-btn");
         placeShipsBtnDOM.addEventListener("click", () => {
             if (this.checkPlaceShipsValidity(coordinatesWithShips) === false) {
-                this.snackbar("Ship placement is not correct, please try again.");
+                this.snackbar("Something's wrong with your ship placement, Admiral.");
             } else {
                 const occupiedCoordinatesWithShips = this.checkPlaceShipsValidity(coordinatesWithShips);
                 Object.keys(occupiedCoordinatesWithShips).forEach((ship) => {
@@ -154,6 +154,7 @@ class DOM {
                 this.renderGameboardForAI(computer);
                 placeShipsModalDOM.classList.add("hidden");
                 document.querySelector(".boards").classList.remove("hidden");
+                this.renderShipImages();
             }
         });
     };
@@ -295,6 +296,14 @@ class DOM {
                 break;
             default:
                 console.log("error");
+            }
+        });
+    };
+
+    static renderShipImages = () => {
+        document.querySelectorAll(".player-square").forEach((square) => {
+            if (square.textContent !== "") {
+                console.log(square);
             }
         });
     };
