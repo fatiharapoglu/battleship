@@ -46,13 +46,14 @@ body {
         grid-template-columns: repeat(10, 50px);
         grid-template-rows: repeat(10, 50px);
         grid-gap: 1px;
+        filter: drop-shadow(1px 2px 3px black);
 
         .carrier-1 {
             background-image: url("./assets/carrier/1.png");
             background-position: center;
             background-size: cover;
         }
-        
+
         .carrier-2 {
             background-image: url("./assets/carrier/2.png");
             background-position: center;
@@ -82,7 +83,7 @@ body {
             background-position: center;
             background-size: cover;
         }
-        
+
         .battleship-2 {
             background-image: url("./assets/battleship/2.png");
             background-position: center;
@@ -106,7 +107,7 @@ body {
             background-position: center;
             background-size: cover;
         }
-        
+
         .destroyer-2 {
             background-image: url("./assets/destroyer/2.png");
             background-position: center;
@@ -124,7 +125,7 @@ body {
             background-position: center;
             background-size: cover;
         }
-        
+
         .submarine-2 {
             background-image: url("./assets/submarine/2.png");
             background-position: center;
@@ -142,7 +143,7 @@ body {
             background-position: center;
             background-size: cover;
         }
-        
+
         .patroller-2 {
             background-image: url("./assets/patroller/2.png");
             background-position: center;
@@ -232,6 +233,7 @@ body {
         left: 50%;
         transform: translateX(-50%);
         justify-items: center;
+        filter: drop-shadow(1px 2px 3px black);
     }
 
     .square {
@@ -243,23 +245,58 @@ body {
     }
 
     .carrier {
-        background-color: black;
+        background-image: url("./assets/carrier.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .carrier.vertical {
+        background-image: url("./assets/carrier-rotated.png");
     }
 
     .battleship {
-        background-color: rgb(199, 154, 154);
+        background-image: url("./assets/battleship.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .battleship.vertical {
+        background-image: url("./assets/battleship-rotated.png");
     }
 
     .destroyer {
-        background-color: rgb(151, 139, 139);
+        background-image: url("./assets/destroyer.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .destroyer.vertical {
+        background-image: url("./assets/destroyer-rotated.png");
     }
 
     .submarine {
-        background-color: rgb(255, 229, 229);
+        background-image: url("./assets/submarine.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .submarine.vertical {
+        background-image: url("./assets/submarine-rotated.png");
     }
 
     .patroller {
-        background-color: rgb(94, 26, 26);
+        background-image: url("./assets/patroller.png");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+
+    .patroller.vertical {
+        background-image: url("./assets/patroller-rotated.png");
     }
 
     button {
