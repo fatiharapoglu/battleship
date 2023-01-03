@@ -144,12 +144,14 @@ class DOM {
                 this.snackbar("Something's wrong with your ship placement, Admiral.");
             } else {
                 const occupiedCoordinatesWithShips = this.checkPlaceShipsValidity(coordinatesWithShips);
+
                 Object.keys(occupiedCoordinatesWithShips).forEach((ship) => {
                     const direction = occupiedCoordinatesWithShips[ship].direction;
                     const coordinates = occupiedCoordinatesWithShips[ship].startPoint;
                     const name = ship;
                     player.board.placeShips(coordinates, player.board[name], direction);
                 });
+
                 this.renderGameboardForPlayer(player);
                 this.renderGameboardForAI(computer);
                 placeShipsModalDOM.classList.add("hidden");
@@ -266,9 +268,15 @@ class DOM {
             case "destroyer":
             case "submarine":
             case "patroller":
+                square.textContent = playerBoard[coordinates[0]][coordinates[1]];
+                break;
             case "hit":
+                square.textContent = playerBoard[coordinates[0]][coordinates[1]];
+                square.classList.add("hit");
+                break;
             case "miss":
                 square.textContent = playerBoard[coordinates[0]][coordinates[1]];
+                square.classList.add("miss");
                 break;
             default:
                 console.log("error");
@@ -291,8 +299,12 @@ class DOM {
             case "patroller":
                 break;
             case "hit":
+                square.textContent = computerBoard[coordinates[0]][coordinates[1]];
+                square.classList.add("hit");
+                break;
             case "miss":
                 square.textContent = computerBoard[coordinates[0]][coordinates[1]];
+                square.classList.add("miss");
                 break;
             default:
                 console.log("error");

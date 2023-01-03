@@ -3,6 +3,8 @@
     --secondary: rgb(189 229 253);
     --third: rgb(59, 72, 80);
     --fourth: rgb(122, 122, 122);
+    --hit: red;
+    --miss: blue;
     --background-primary: rgb(27, 27, 27);
     --font-1: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     --font-2: Verdana, Geneva, Tahoma, sans-serif;
@@ -160,10 +162,16 @@ body {
 
     .square {
         outline: var(--border);
-        cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;
+        position: relative;
+        color: transparent;
+        user-select: none;
+    }
+
+    .AI-square {
+       cursor: pointer; 
     }
 }
 
@@ -313,6 +321,26 @@ body {
 
 .rotated {
     transform: rotate(90deg);
+}
+
+.hit::after {
+    content: "x";
+    color: var(--hit);
+    font-size: 2rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.miss::after {
+    content: "x";
+    color: var(--miss);
+    font-size: 2rem;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .drop-active {
