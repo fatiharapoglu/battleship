@@ -301,9 +301,36 @@ class DOM {
     };
 
     static renderShipImages = () => {
+        let carrierCount = 1;
+        let battleshipCount = 1;
+        let destroyerCount = 1;
+        let submarineCount = 1;
+        let patrollerCount = 1;
+
         document.querySelectorAll(".player-square").forEach((square) => {
-            if (square.textContent !== "") {
-                console.log(square);
+            switch (square.textContent) {
+            case "carrier":
+                square.classList.add(`${square.textContent}-${carrierCount}`);
+                carrierCount++;
+                break;
+            case "battleship":
+                square.classList.add(`${square.textContent}-${battleshipCount}`);
+                battleshipCount++;
+                break;
+            case "destroyer":
+                square.classList.add(`${square.textContent}-${destroyerCount}`);
+                destroyerCount++;
+                break;
+            case "submarine":
+                square.classList.add(`${square.textContent}-${submarineCount}`);
+                submarineCount++;
+                break;
+            case "patroller":
+                square.classList.add(`${square.textContent}-${patrollerCount}`);
+                patrollerCount++;
+                break;
+            default:
+                break;
             }
         });
     };

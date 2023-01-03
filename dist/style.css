@@ -46,6 +46,91 @@ body {
   grid-template-rows: repeat(10, 50px);
   grid-gap: 1px;
 }
+.boards .player-board .carrier-1 {
+  background-image: url("./assets/carrier/1.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .carrier-2 {
+  background-image: url("./assets/carrier/2.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .carrier-3 {
+  background-image: url("./assets/carrier/3.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .carrier-4 {
+  background-image: url("./assets/carrier/4.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .carrier-5 {
+  background-image: url("./assets/carrier/5.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .battleship-1 {
+  background-image: url("./assets/battleship/1.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .battleship-2 {
+  background-image: url("./assets/battleship/2.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .battleship-3 {
+  background-image: url("./assets/battleship/3.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .battleship-4 {
+  background-image: url("./assets/battleship/4.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .destroyer-1 {
+  background-image: url("./assets/destroyer/1.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .destroyer-2 {
+  background-image: url("./assets/destroyer/2.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .destroyer-3 {
+  background-image: url("./assets/destroyer/3.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .submarine-1 {
+  background-image: url("./assets/submarine/1.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .submarine-2 {
+  background-image: url("./assets/submarine/2.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .submarine-3 {
+  background-image: url("./assets/submarine/3.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .patroller-1 {
+  background-image: url("./assets/patroller/1.png");
+  background-position: center;
+  background-size: cover;
+}
+.boards .player-board .patroller-2 {
+  background-image: url("./assets/patroller/2.png");
+  background-position: center;
+  background-size: cover;
+}
 .boards .AI-board {
   display: grid;
   grid-template-columns: repeat(10, 50px);
@@ -154,6 +239,10 @@ body {
   bottom: -50px;
   left: 50%;
   transform: translateX(-50%);
+}
+
+.rotated {
+  transform: rotate(90deg);
 }
 
 .drop-active {

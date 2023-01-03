@@ -46,6 +46,108 @@ body {
         grid-template-columns: repeat(10, 50px);
         grid-template-rows: repeat(10, 50px);
         grid-gap: 1px;
+
+        .carrier-1 {
+            background-image: url("./assets/carrier/1.png");
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .carrier-2 {
+            background-image: url("./assets/carrier/2.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .carrier-3 {
+            background-image: url("./assets/carrier/3.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .carrier-4 {
+            background-image: url("./assets/carrier/4.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .carrier-5 {
+            background-image: url("./assets/carrier/5.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .battleship-1 {
+            background-image: url("./assets/battleship/1.png");
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .battleship-2 {
+            background-image: url("./assets/battleship/2.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .battleship-3 {
+            background-image: url("./assets/battleship/3.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .battleship-4 {
+            background-image: url("./assets/battleship/4.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .destroyer-1 {
+            background-image: url("./assets/destroyer/1.png");
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .destroyer-2 {
+            background-image: url("./assets/destroyer/2.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .destroyer-3 {
+            background-image: url("./assets/destroyer/3.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .submarine-1 {
+            background-image: url("./assets/submarine/1.png");
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .submarine-2 {
+            background-image: url("./assets/submarine/2.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .submarine-3 {
+            background-image: url("./assets/submarine/3.png");
+            background-position: center;
+            background-size: cover;
+        }
+
+        .patroller-1 {
+            background-image: url("./assets/patroller/1.png");
+            background-position: center;
+            background-size: cover;
+        }
+        
+        .patroller-2 {
+            background-image: url("./assets/patroller/2.png");
+            background-position: center;
+            background-size: cover;
+        }
     }
 
     .AI-board {
@@ -170,6 +272,10 @@ body {
         left: 50%;
         transform: translateX(-50%);
     }
+}
+
+.rotated {
+    transform: rotate(90deg);
 }
 
 .drop-active {
