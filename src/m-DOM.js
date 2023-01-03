@@ -154,7 +154,7 @@ class DOM {
                 this.renderGameboardForAI(computer);
                 placeShipsModalDOM.classList.add("hidden");
                 document.querySelector(".boards").classList.remove("hidden");
-                this.renderShipImages();
+                this.renderShipImages(occupiedCoordinatesWithShips);
             }
         });
     };
@@ -300,7 +300,13 @@ class DOM {
         });
     };
 
-    static renderShipImages = () => {
+    static renderShipImages = (occupiedCoordinatesWithShips) => {
+        const carrierDirection = occupiedCoordinatesWithShips.carrier.direction;
+        const battleshipDirection = occupiedCoordinatesWithShips.battleship.direction;
+        const destroyerDirection = occupiedCoordinatesWithShips.destroyer.direction;
+        const submarineDirection = occupiedCoordinatesWithShips.submarine.direction;
+        const patrollerDirection = occupiedCoordinatesWithShips.patroller.direction;
+
         let carrierCount = 1;
         let battleshipCount = 1;
         let destroyerCount = 1;
@@ -312,22 +318,37 @@ class DOM {
             case "carrier":
                 square.classList.add(`${square.textContent}-${carrierCount}`);
                 carrierCount++;
+                if (carrierDirection === "vertical") {
+                    square.classList.add("rotated");
+                }
                 break;
             case "battleship":
                 square.classList.add(`${square.textContent}-${battleshipCount}`);
                 battleshipCount++;
+                if (battleshipDirection === "vertical") {
+                    square.classList.add("rotated");
+                }
                 break;
             case "destroyer":
                 square.classList.add(`${square.textContent}-${destroyerCount}`);
                 destroyerCount++;
+                if (destroyerDirection === "vertical") {
+                    square.classList.add("rotated");
+                }
                 break;
             case "submarine":
                 square.classList.add(`${square.textContent}-${submarineCount}`);
                 submarineCount++;
+                if (submarineDirection === "vertical") {
+                    square.classList.add("rotated");
+                }
                 break;
             case "patroller":
                 square.classList.add(`${square.textContent}-${patrollerCount}`);
                 patrollerCount++;
+                if (patrollerDirection === "vertical") {
+                    square.classList.add("rotated");
+                }
                 break;
             default:
                 break;
