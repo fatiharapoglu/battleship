@@ -45,6 +45,7 @@ body {
   grid-template-columns: repeat(10, 50px);
   grid-template-rows: repeat(10, 50px);
   grid-gap: 1px;
+  filter: drop-shadow(1px 2px 3px black);
 }
 .boards .player-board .carrier-1 {
   background-image: url("./assets/carrier/1.png");
@@ -207,6 +208,7 @@ body {
   left: 50%;
   transform: translateX(-50%);
   justify-items: center;
+  filter: drop-shadow(1px 2px 3px black);
 }
 .place-ships .square {
   outline: var(--border);
@@ -216,19 +218,49 @@ body {
   align-items: center;
 }
 .place-ships .carrier {
-  background-color: black;
+  background-image: url("./assets/carrier.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.place-ships .carrier.vertical {
+  background-image: url("./assets/carrier-rotated.png");
 }
 .place-ships .battleship {
-  background-color: rgb(199, 154, 154);
+  background-image: url("./assets/battleship.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.place-ships .battleship.vertical {
+  background-image: url("./assets/battleship-rotated.png");
 }
 .place-ships .destroyer {
-  background-color: rgb(151, 139, 139);
+  background-image: url("./assets/destroyer.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.place-ships .destroyer.vertical {
+  background-image: url("./assets/destroyer-rotated.png");
 }
 .place-ships .submarine {
-  background-color: rgb(255, 229, 229);
+  background-image: url("./assets/submarine.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.place-ships .submarine.vertical {
+  background-image: url("./assets/submarine-rotated.png");
 }
 .place-ships .patroller {
-  background-color: rgb(94, 26, 26);
+  background-image: url("./assets/patroller.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.place-ships .patroller.vertical {
+  background-image: url("./assets/patroller-rotated.png");
 }
 .place-ships button {
   background-color: inherit;
