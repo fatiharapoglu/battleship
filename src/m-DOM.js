@@ -375,11 +375,25 @@ class DOM {
         return ID;
     };
 
-    static playOneRoundForEach = (player, computer, coordinates) => {
+    static playOneRoundForEach = async (player, computer, coordinates) => {
+        const squares = document.querySelectorAll(".AI-square");
+
         Player.playerAttacks(computer, coordinates);
         this.renderGameboardForAI(computer);
-        Player.computerAttacks(player);
-        this.renderGameboardForPlayer(player);
+
+        squares.forEach((square) => {
+            square.classList.add("disabled"); // disabled class adds pointer-events:none
+        });
+        await new Promise((resolve) => { // waiting to resolve while computer plays
+            setTimeout(() => {
+                Player.computerAttacks(player);
+                this.renderGameboardForPlayer(player);
+            }, 250);
+            setTimeout(resolve, 250);
+        });
+        squares.forEach((square) => {
+            square.classList.remove("disabled"); // so the player can't interact with the squares until promise resolved
+        });
     };
 
     static snackbar = (text) => { // snackbar alert settings
