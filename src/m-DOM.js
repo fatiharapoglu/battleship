@@ -30,6 +30,7 @@ class DOM {
 
     static placeShipsForPlayer = (player, computer) => {
         const placeShipsModalDOM = document.querySelector(".place-ships");
+        const boardsDOM = document.querySelector(".boards");
         placeShipsModalDOM.classList.remove("hidden");
 
         const coordinatesWithShips = {};
@@ -76,31 +77,13 @@ class DOM {
         interact(".dropzone").dropzone({
             accept: ".draggable",
             overlap: 0.19,
-            ondropactivate(event) {
-                event.target.classList.add("drop-active");
-            },
-            ondragenter(event) {
-                const draggableElement = event.relatedTarget;
-                const dropzoneElement = event.target;
-                dropzoneElement.classList.add("drop-target");
-                draggableElement.classList.add("can-drop");
-            },
-            ondragleave(event) {
-                event.target.classList.remove("drop-target");
-                event.relatedTarget.classList.remove("can-drop");
-            },
             ondrop(event) {
-                event.relatedTarget.textContent = "Dropped";
                 let endPoint = event.target.dataset.id;
                 const shipName = event.relatedTarget.classList[0];
                 const direction = event.relatedTarget.classList[2];
                 const startPoint = findStartPoint(endPoint, direction, shipName);
                 endPoint = JSON.parse(endPoint);
                 coordinatesWithShips[shipName] = { startPoint, endPoint, direction };
-            },
-            ondropdeactivate(event) {
-                event.target.classList.remove("drop-active");
-                event.target.classList.remove("drop-target");
             },
         });
 
@@ -154,9 +137,9 @@ class DOM {
 
                 this.renderGameboardForPlayer(player);
                 this.renderGameboardForAI(computer);
-                placeShipsModalDOM.classList.add("hidden");
-                document.querySelector(".boards").classList.remove("hidden");
                 this.renderShipImages(occupiedCoordinatesWithShips);
+                placeShipsModalDOM.classList.add("hidden");
+                boardsDOM.classList.remove("hidden");
             }
         });
     };
@@ -313,11 +296,12 @@ class DOM {
     };
 
     static renderShipImages = (occupiedCoordinatesWithShips) => {
-        const carrierDirection = occupiedCoordinatesWithShips.carrier.direction;
-        const battleshipDirection = occupiedCoordinatesWithShips.battleship.direction;
-        const destroyerDirection = occupiedCoordinatesWithShips.destroyer.direction;
-        const submarineDirection = occupiedCoordinatesWithShips.submarine.direction;
-        const patrollerDirection = occupiedCoordinatesWithShips.patroller.direction;
+        const shipObj = occupiedCoordinatesWithShips;
+        const carrierDirection = shipObj.carrier.direction;
+        const battleshipDirection = shipObj.battleship.direction;
+        const destroyerDirection = shipObj.destroyer.direction;
+        const submarineDirection = shipObj.submarine.direction;
+        const patrollerDirection = shipObj.patroller.direction;
 
         let carrierCount = 1;
         let battleshipCount = 1;
