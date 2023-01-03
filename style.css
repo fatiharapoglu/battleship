@@ -139,6 +139,7 @@ body {
   grid-template-columns: repeat(10, 50px);
   grid-template-rows: repeat(10, 50px);
   grid-gap: 1px;
+  cursor: progress;
 }
 .boards .square {
   outline: var(--border);
@@ -183,10 +184,6 @@ body {
   font-size: 1.5rem;
   padding: 10px;
   text-align: center;
-}
-
-.hidden {
-  visibility: hidden;
 }
 
 .place-ships {
@@ -280,8 +277,16 @@ body {
   transform: translateX(-50%);
 }
 
+.hidden {
+  visibility: hidden;
+}
+
 .rotated {
   transform: rotate(90deg);
+}
+
+.disabled {
+  pointer-events: none;
 }
 
 .hit::after {
