@@ -1,3 +1,4 @@
+import { DOM } from "./m-DOM";
 import { Ship } from "./m-ship";
 
 class Gameboard {
@@ -40,7 +41,14 @@ class Gameboard {
             this.board[coordinates[0]][coordinates[1]] = "hit";
             const target = Object.keys(this).find((key) => this[key].name === name);
             this[target].hit();
+            this.checkIsSunk(target);
             this.checkIsGame();
+        }
+    };
+
+    checkIsSunk = (target) => {
+        if (this[target].isSunk) {
+            DOM.info(`${this.player}'s ${this[target].name} is sunk!`);
         }
     };
 
@@ -109,7 +117,14 @@ class Gameboard {
     };
 
     endGame = () => {
-        console.log(`${this.player}'s all ships are under water. GG`);
+        const text = `${this.player}'s all ships are under water. GG`;
+        let winner;
+        if (this.player === "AI") {
+            winner = "player";
+        } else {
+            winner = "AI";
+        }
+        DOM.endGame(text, winner);
     };
 }
 

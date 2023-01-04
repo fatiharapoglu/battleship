@@ -8,10 +8,14 @@ class DOM {
         const modalDOM = document.querySelector(".start");
         const nameInputDOM = document.querySelector("#input-name");
         const startBtnDOM = document.querySelector("#start-game");
+        const boardNameDOM = document.querySelector("#board-name");
 
         startBtnDOM.addEventListener("click", () => {
             const name = nameInputDOM.value;
+            if (name === "") return this.snackbar("Name can't be empty.");
+            boardNameDOM.textContent = `${name}'s board`;
             this.initGame(name);
+            this.info(`Place your ships ${name}.`);
             modalDOM.classList.add("hidden");
         });
     };
@@ -138,6 +142,7 @@ class DOM {
                 this.renderGameboardForPlayer(player);
                 this.renderGameboardForAI(computer);
                 this.renderShipImages(occupiedCoordinatesWithShips);
+                this.info("You can fire by clicking to the enemy board.");
                 placeShipsModalDOM.classList.add("hidden");
                 boardsDOM.classList.remove("hidden");
             }
@@ -380,6 +385,24 @@ class DOM {
         });
     };
 
+    static info = (text) => {
+        const infoDOM = document.querySelector("#announcer");
+        infoDOM.textContent = "";
+
+        let letter = 0;
+        const animationText = text;
+        const speed = 25;
+
+        const typeWriter = () => {
+            if (letter < animationText.length) {
+                infoDOM.textContent += animationText.charAt(letter);
+                letter++;
+                setTimeout(typeWriter, speed);
+            }
+        };
+        typeWriter();
+    };
+
     static snackbar = (text) => { // snackbar alert settings
         const snackbarDOM = document.getElementById("snackbar");
         snackbarDOM.textContent = text;
@@ -387,6 +410,31 @@ class DOM {
         setTimeout(() => {
             snackbarDOM.classList.remove("show");
         }, 3000);
+    };
+
+    static endGame = (text, winner) => {
+        const endModalDOM = document.querySelector(".end-game");
+        const squares = document.querySelectorAll(".AI-square");
+        setTimeout(() => {
+            squares.forEach((square) => {
+                square.classList.add("disabled");
+            });
+        }, 300);
+        let winnerText;
+        if (winner === "AI") {
+            winnerText = "Computer wins...";
+        } else {
+            winnerText = "YOU WIN!";
+        }
+        const newText = `
+            <span class="winner">${winnerText}</span> ${text} <button class="play-again">Play Again?</button>
+            `;
+        endModalDOM.innerHTML = newText;
+        const playAgainBtn = document.querySelector(".play-again");
+        playAgainBtn.addEventListener("click", () => {
+            location.reload();
+        });
+        endModalDOM.classList.remove("hidden");
     };
 }
 

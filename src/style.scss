@@ -3,6 +3,7 @@
     --secondary: rgb(189 229 253);
     --third: rgb(59, 72, 80);
     --fourth: rgb(122, 122, 122);
+    --fifth: rgb(152, 221, 248);
     --hit: red;
     --miss: blue;
     --background-primary: rgb(27, 27, 27);
@@ -39,15 +40,22 @@ body {
 .boards {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 70vh;
-    gap: 100px;
+    align-items: flex-start;
+    gap: 50px;
 
     .player-board {
         display: grid;
         grid-template-columns: repeat(10, 50px);
         grid-template-rows: repeat(10, 50px);
         grid-gap: 1px;
+        position: relative;
+
+        #board-name {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
 
         .carrier-1 {
             background-image: url("./assets/carrier/1.png");
@@ -158,6 +166,15 @@ body {
         grid-template-rows: repeat(10, 50px);
         grid-gap: 1px;
         cursor: progress;
+        position: relative;
+
+        .enemy-board {
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            cursor: default;
+        }
     }
 
     .square {
@@ -171,7 +188,7 @@ body {
     }
 
     .AI-square {
-       cursor: pointer; 
+        cursor: pointer;
     }
 }
 
@@ -314,6 +331,14 @@ body {
         transform: translateX(-50%);
         border-radius: 10px;
     }
+
+    .double-click-info {
+        position: absolute;
+        bottom: -85px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+    }
 }
 
 .hidden {
@@ -348,26 +373,82 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.drop-active {
-    border-color: rgb(163, 112, 112);
+.header {
+    height: 22.5vh;
+    text-align: center;
+    padding-top: 5vh;
+    letter-spacing: 10px;
+
+    h1 {
+        font-size: 3.5rem;
+    }
+
+    .js {
+        vertical-align: top;
+        background-color: #efd81d;
+        color: black;
+        padding: 5px;
+        font-weight: bold;
+        letter-spacing: 0px;
+    }
+
+    #announcer {
+        text-align: center;
+        font-size: 1.2rem;
+        padding-top: 5vh;
+        letter-spacing: 2px;
+        font-family: var(--font-2);
+        color: var(--fifth);
+    }
 }
 
-.drop-target {
-    background-color: #29e;
-    border-color: #fff;
-    border-style: solid;
+.end-game {
+    width: 50vh;
+    height: 25vh;
+    color: var(--secondary);
+    background-color: var(--primary);
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    padding: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: var(--border);
+    border-radius: 10px;
 }
 
-.draggable.can-drop {
-    color: #000;
-    background-color: #4e4;
+.winner {
+    color: var(--fifth);
+    font-size: 2.5rem;
+    margin: 10px;
+}
+
+.play-again {
+    background-color: inherit;
+    border: none;
+    padding: 5px;
+    color: var(--third);
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.play-again:hover {
+    scale: 1.1;
+    color: var(--hit);
 }
 
 .snackbar {
     visibility: hidden;
     min-width: 250px;
-    background-color: var(--background-primary);
+    background-color: var(--hit);
     color: var(--secondary);
+    font-weight: bold;
+    font-size: 1.5rem;
     text-align: center;
     border-radius: 10px;
     padding: 1rem;
@@ -375,7 +456,7 @@ body {
     z-index: 2;
     left: 50%;
     transform: translateX(-50%);
-    bottom: 25vh;
+    bottom: 6vh;
 }
 
 .snackbar.show {
@@ -391,7 +472,7 @@ body {
     }
 
     to {
-        bottom: 25vh;
+        bottom: 6vh;
         opacity: 1;
     }
 }
@@ -403,14 +484,14 @@ body {
     }
 
     to {
-        bottom: 25vh;
+        bottom: 6vh;
         opacity: 1;
     }
 }
 
 @-webkit-keyframes fadeout {
     from {
-        bottom: 25vh;
+        bottom: 6vh;
         opacity: 1;
     }
 
@@ -422,7 +503,7 @@ body {
 
 @keyframes fadeout {
     from {
-        bottom: 25vh;
+        bottom: 6vh;
         opacity: 1;
     }
 
