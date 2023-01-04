@@ -19,7 +19,6 @@
     color: var(--secondary);
     font-family: var(--font-1);
     font-size: 10px;
-    // text-shadow: 1px 1px 1px black;
 }
 
 ul,
@@ -378,6 +377,7 @@ body {
     text-align: center;
     padding-top: 5vh;
     letter-spacing: 10px;
+    text-shadow:  2px 7px 5px black;
 
     h1 {
         font-size: 3.5rem;
