@@ -12,7 +12,7 @@ class DOM {
 
         startBtnDOM.addEventListener("click", () => {
             const name = nameInputDOM.value;
-            if (name === "") return this.snackbar("Name can't be empty.");
+            if (name === "") return this.snackbar("Name is required.");
             boardNameDOM.textContent = `${name}'s board`;
             this.initGame(name);
             this.info(`Place your ships ${name}.`);
@@ -156,6 +156,7 @@ class DOM {
         const dropzones = placeShipsModal.querySelectorAll(".dropzone");
         const occupiedCoordinates = [];
         const occupiedCoordinatesWithShips = coordinatesWithShips;
+
         Object.keys(occupiedCoordinatesWithShips).forEach((key) => {
             occupiedCoordinatesWithShips[key].coordinates = [];
         });
@@ -188,7 +189,6 @@ class DOM {
         const duplicates = occupiedCoordinates.filter(
             (sub, index, self) => index !== self.findIndex((t) => t === sub),
         );
-
         if (duplicates.length !== 0 || occupiedCoordinates.length !== 17) {
             return false;
         }
@@ -385,14 +385,13 @@ class DOM {
         });
     };
 
-    static infoHelper = {
+    static infoHelper = { // typewriter helper object
         queue: [],
         isRunning: false,
     };
 
     static info = (text) => {
         const infoDOM = document.querySelector("#announcer");
-
         this.infoHelper.queue.push(text);
         const typeWriter = () => {
             if (this.infoHelper.isRunning) return;
@@ -448,7 +447,7 @@ class DOM {
         endModalDOM.innerHTML = newText;
         const playAgainBtn = document.querySelector(".play-again");
         playAgainBtn.addEventListener("click", () => {
-            location.reload();
+            location.reload(); // refreshes the page if player clicks play again
         });
         endModalDOM.classList.remove("hidden");
     };

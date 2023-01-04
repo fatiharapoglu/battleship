@@ -46,9 +46,16 @@ class Gameboard {
         }
     };
 
+    static sunkShips = [];
+
     checkIsSunk = (target) => {
         if (this[target].isSunk) {
-            DOM.info(`${this.player}'s ${this[target].name} is sunk!`);
+            if (Gameboard.sunkShips.length === 0) {
+                DOM.info(`FIRST BLOOD! ${this.player}'s ${this[target].name} is sunk!`);
+            } else {
+                DOM.info(`${this.player}'s ${this[target].name} is sunk!`);
+            }
+            Gameboard.sunkShips.push(this[target]);
         }
     };
 
