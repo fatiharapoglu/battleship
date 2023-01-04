@@ -46,7 +46,7 @@ class Gameboard {
         }
     };
 
-    static sunkShips = [];
+    static sunkShips = []; // this exist for first blood feature only for now. stores sunk ships.
 
     checkIsSunk = (target) => {
         if (this[target].isSunk) {

@@ -1,22 +1,20 @@
 :root {
-    --primary: rgb(19, 1, 1);
-    --secondary: rgb(189 229 253);
-    --third: rgb(59, 72, 80);
-    --fourth: rgb(122, 122, 122);
-    --fifth: rgb(152, 221, 248);
-    --hit: red;
-    --miss: blue;
-    --background-primary: rgb(27, 27, 27);
-    --font-1: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --primary: rgb(3 18 36);
+    --secondary: rgb(171 228 248);
+    --fourth: rgb(255, 255, 255);
+    --hit: rgb(255 64 64);
+    --miss: rgb(0 255 216 / 50%);
+    --background-primary: rgb(8 8 14);
+    --font-1: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     --font-2: Verdana, Geneva, Tahoma, sans-serif;
-    --border: 1px solid gray;
+    --border: 1px solid rgb(48 89 126 / 25%);
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    color: var(--secondary);
+    color: var(--fourth);
     font-family: var(--font-1);
     font-size: 10px;
 }
@@ -194,41 +192,50 @@ body {
 .start {
     border: var(--border);
     border-radius: 10px;
-    background-color: var(--third);
+    background-color: var(--primary);
     display: flex;
+    justify-content: space-evenly;
     flex-direction: column;
     position: absolute;
     top: 35%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 250px;
+    width: 30vh;
 
     input {
         height: 30px;
-        background-color: var(--fourth);
-        color: var(--secondary);
+        background-color: var(--hit);
+        font-size: 1.3rem;
         border: none;
-        padding: 15px;
+        padding: 25px;
         text-align: center;
+        text-shadow: 1px 1px 0px black;
     }
 
     button {
         background-color: inherit;
         border: none;
-        padding: 15px;
-        color: var(--secondary);
+        border-radius: 10px;
+        padding: 25px;
+        font-size: 1.4rem;
+        cursor: pointer;
+    }
+
+    button:hover {
+        color: var(--hit);
     }
 
     h1 {
-        font-size: 1.5rem;
+        font-size: 1.7rem;
         padding: 10px;
+        padding: 25px 0;
         text-align: center;
     }
 }
 
 .place-ships {
     border-radius: 10px;
-    background-color: var(--third);
+    background-color: var(--primary);
     display: flex;
     flex-direction: column;
     position: absolute;
@@ -321,14 +328,19 @@ body {
 
     button {
         background-color: inherit;
-        border: none;
-        padding: 15px;
-        color: var(--secondary);
+        border: var(--border);
+        padding: 10px;
+        font-size: 1.5rem;
         position: absolute;
         bottom: -50px;
         left: 50%;
         transform: translateX(-50%);
         border-radius: 10px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        color: var(--hit);
     }
 
     .double-click-info {
@@ -356,20 +368,23 @@ body {
     content: "x";
     color: var(--hit);
     font-size: 2rem;
+    font-weight: bold;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    text-shadow: 1px 1px 0px black;
 }
 
 .miss::after {
     content: "x";
     color: var(--miss);
-    font-size: 2rem;
+    font-size: 1.5rem;
     position: absolute;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
+    text-shadow: 1px 1px 0px black;
 }
 
 .header {
@@ -377,10 +392,11 @@ body {
     text-align: center;
     padding-top: 5vh;
     letter-spacing: 10px;
-    text-shadow:  2px 7px 5px black;
 
     h1 {
-        font-size: 3.5rem;
+        font-size: 4rem;
+        color: var(--secondary);
+        text-shadow:  2px 7px 5px black;
     }
 
     .js {
@@ -394,18 +410,16 @@ body {
 
     #announcer {
         text-align: center;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         padding-top: 5vh;
         letter-spacing: 2px;
         font-family: var(--font-2);
-        color: var(--fifth);
     }
 }
 
 .end-game {
-    width: 50vh;
-    height: 25vh;
-    color: var(--secondary);
+    width: 40vh;
+    height: 20vh;
     background-color: var(--primary);
     font-size: 2rem;
     display: flex;
@@ -423,18 +437,17 @@ body {
 }
 
 .winner {
-    color: var(--fifth);
+    color: var(--secondary);
     font-size: 2.5rem;
-    margin: 10px;
 }
 
 .play-again {
     background-color: inherit;
     border: none;
     padding: 5px;
-    color: var(--third);
     font-size: 2rem;
     cursor: pointer;
+    color: var(--miss);
 }
 
 .play-again:hover {
@@ -446,12 +459,12 @@ body {
     visibility: hidden;
     min-width: 250px;
     background-color: var(--hit);
-    color: var(--secondary);
+    text-shadow: 1px 1px 0px black;
     font-weight: bold;
-    font-size: 1.5rem;
+    font-size: 2rem;
     text-align: center;
     border-radius: 10px;
-    padding: 1rem;
+    padding: 2rem;
     position: fixed;
     z-index: 2;
     left: 50%;
