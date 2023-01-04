@@ -385,22 +385,38 @@ class DOM {
         });
     };
 
+    static infoHelper = {
+        queue: [],
+        isRunning: false,
+    };
+
     static info = (text) => {
         const infoDOM = document.querySelector("#announcer");
-        infoDOM.textContent = "";
 
-        let letter = 0;
-        const animationText = text;
-        const speed = 25;
-
+        this.infoHelper.queue.push(text);
         const typeWriter = () => {
-            if (letter < animationText.length) {
-                infoDOM.textContent += animationText.charAt(letter);
-                letter++;
-                setTimeout(typeWriter, speed);
-            }
+            if (this.infoHelper.isRunning) return;
+            if (this.infoHelper.queue.length === 0) return;
+            infoDOM.textContent = "";
+            this.infoHelper.isRunning = true;
+            const animationText = this.infoHelper.queue.shift();
+            const speed = 100;
+            let letter = 0;
+            const type = () => {
+                if (letter < animationText.length) {
+                    infoDOM.textContent += animationText.charAt(letter);
+                    letter++;
+                    setTimeout(type, speed);
+                } else {
+                    this.infoHelper.isRunning = false;
+                    typeWriter();
+                }
+            };
+            type();
         };
-        typeWriter();
+        if (!this.infoHelper.isRunning) {
+            typeWriter();
+        }
     };
 
     static snackbar = (text) => { // snackbar alert settings
