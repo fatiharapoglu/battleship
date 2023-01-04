@@ -2,12 +2,14 @@
   --primary: rgb(3 18 36);
   --secondary: rgb(171 228 248);
   --fourth: rgb(255, 255, 255);
-  --hit: rgb(255 64 64);
-  --miss: rgb(0 255 216 / 50%);
-  --background-primary: rgb(8 8 14);
+  --hit: rgb(255 118 118);
+  --miss: rgb(0 255 216 / 75%);
+  --js: rgba(239, 214, 29, 0.9);
+  --background-primary: rgb(10 10 10);
+  --background-secondary: black;
   --font-1: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   --font-2: Verdana, Geneva, Tahoma, sans-serif;
-  --border: 1px solid rgb(48 89 126 / 25%);
+  --border: 1px dashed rgb(140 200 255 / 5%);
 }
 
 * {
@@ -37,8 +39,9 @@ body {
 .boards {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   gap: 50px;
+  height: 75vh;
 }
 .boards .player-board {
   display: grid;
@@ -169,24 +172,24 @@ body {
 .start {
   border: var(--border);
   border-radius: 10px;
-  background-color: var(--primary);
+  background-color: var(--background-secondary);
   display: flex;
   justify-content: space-evenly;
   flex-direction: column;
   position: absolute;
-  top: 35%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 30vh;
 }
 .start input {
   height: 30px;
-  background-color: var(--hit);
-  font-size: 1.3rem;
+  background-color: var(--js);
+  color: var(--background-secondary);
+  font-size: 1.4rem;
   border: none;
   padding: 25px;
   text-align: center;
-  text-shadow: 1px 1px 0px black;
 }
 .start button {
   background-color: inherit;
@@ -197,7 +200,7 @@ body {
   cursor: pointer;
 }
 .start button:hover {
-  color: var(--hit);
+  color: var(--js);
 }
 .start h1 {
   font-size: 1.7rem;
@@ -208,7 +211,7 @@ body {
 
 .place-ships {
   border-radius: 10px;
-  background-color: var(--primary);
+  background-color: var(--background-secondary);
   display: flex;
   flex-direction: column;
   position: absolute;
@@ -299,7 +302,7 @@ body {
   cursor: pointer;
 }
 .place-ships button:hover {
-  color: var(--hit);
+  color: var(--js);
 }
 .place-ships .double-click-info {
   position: absolute;
@@ -345,10 +348,11 @@ body {
 }
 
 .header {
-  height: 22.5vh;
+  height: 17vh;
   text-align: center;
-  padding-top: 5vh;
+  padding-top: 3vh;
   letter-spacing: 10px;
+  background-color: var(--background-secondary);
 }
 .header h1 {
   font-size: 4rem;
@@ -357,7 +361,7 @@ body {
 }
 .header .js {
   vertical-align: top;
-  background-color: #efd81d;
+  background-color: var(--js);
   color: black;
   padding: 5px;
   font-weight: bold;
@@ -366,7 +370,7 @@ body {
 .header #announcer {
   text-align: center;
   font-size: 1.3rem;
-  padding-top: 5vh;
+  padding-top: 4vh;
   letter-spacing: 2px;
   font-family: var(--font-2);
 }
@@ -374,7 +378,7 @@ body {
 .end-game {
   width: 40vh;
   height: 20vh;
-  background-color: var(--primary);
+  background-color: var(--background-secondary);
   font-size: 2rem;
   display: flex;
   flex-direction: column;
@@ -401,7 +405,7 @@ body {
   padding: 5px;
   font-size: 2rem;
   cursor: pointer;
-  color: var(--miss);
+  color: var(--js);
 }
 
 .play-again:hover {
@@ -409,11 +413,36 @@ body {
   color: var(--hit);
 }
 
+.footer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 8vh;
+  background-color: var(--background-secondary);
+}
+.footer .about {
+  display: flex;
+  align-items: center;
+}
+.footer .github-icon {
+  height: 25px;
+  padding-left: 10px;
+  padding: 0 10px;
+  transition: transform 1s ease-in-out;
+}
+.footer .github-icon:hover {
+  transform: rotate(360deg);
+}
+.footer a:hover {
+  color: var(--js);
+}
+
 .snackbar {
   visibility: hidden;
   min-width: 250px;
-  background-color: var(--hit);
-  text-shadow: 1px 1px 0px black;
+  background-color: var(--js);
+  color: var(--background-secondary);
   font-weight: bold;
   font-size: 2rem;
   text-align: center;
