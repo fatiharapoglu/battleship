@@ -9,9 +9,13 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="header">
+        <h1>BATTLESHIP<span class="js">JS</span></h1>
+        <p id="announcer"></p>
+    </div>
     <div class="boards hidden">
-        <div class="player-board"></div>
-        <div class="AI-board"></div>
+        <div class="player-board"><span id="board-name">Player board</span></div>
+        <div class="AI-board"><span class="enemy-board">Enemy board</span></div>
     </div>
     <div class="start">
         <h1>Enter your name please.</h1>
@@ -28,7 +32,9 @@
             <div class="patroller draggable horizontal" style="width: 103px; height: 51px;"></div>
         </div>
         <button id="place-ships-btn">Start Game</button>
+        <span class="double-click-info">(Double-click to rotate ships)</span>
     </div>
     <div id="snackbar" class="snackbar"><!-- snackbar text --></div>
+    <div class="end-game hidden"></div>
 </body>
 </html>
