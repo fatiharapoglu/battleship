@@ -1,14 +1,14 @@
 :root {
-    --primary: rgb(3 18 36);
     --secondary: rgb(171 228 248);
     --fourth: rgb(255, 255, 255);
     --hit: rgb(255 118 118);
     --miss: rgba(160, 253, 239, 0.75);
-    --js: rgba(239, 214, 29, 0.9);
-    --background-primary: rgb(8 8 8);
-    --background-secondary: black;
+    --js: rgba(239, 214, 29, 0.75);
+    --background-primary: rgb(9 9 9);
+    --background-secondary: rgb(7 7 7 / 95%);
     --font-1: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
     --font-2: Verdana, Geneva, Tahoma, sans-serif;
+    --font-3: "Courier New", Courier, monospace;
     --border: 1px dashed rgb(140 200 255 / 5%);
 }
 
@@ -264,7 +264,6 @@ body {
         left: 50%;
         transform: translateX(-50%);
         justify-items: center;
-        filter: drop-shadow(10px 5px 0px black);
     }
 
     .square {
@@ -352,7 +351,8 @@ body {
         bottom: -85px;
         left: 50%;
         transform: translateX(-50%);
-        font-size: 2rem;
+        font-size: 1.75rem;
+        color: var(--js);
     }
 }
 
@@ -401,7 +401,6 @@ body {
     h1 {
         font-size: 4rem;
         color: var(--secondary);
-        text-shadow:  2px 7px 5px black;
     }
 
     .js {
@@ -417,8 +416,8 @@ body {
         text-align: center;
         font-size: 1.3rem;
         padding-top: 4vh;
-        letter-spacing: 2px;
-        font-family: var(--font-2);
+        letter-spacing: 1px;
+        font-family: var(--font-3);
     }
 }
 
@@ -479,7 +478,7 @@ body {
         padding: 0 10px;
         transition: transform 1s ease-in-out;
     }
-    
+
     .github-icon:hover {
         transform: rotate(360deg);
     }
