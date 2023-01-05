@@ -188,6 +188,7 @@ class DOM {
         if (duplicates.length !== 0 || occupiedCoordinates.length !== 17) { // double check if it's valid
             return false;
         }
+        console.log(occupiedCoordinatesWithShips);
         return occupiedCoordinatesWithShips; // returns copy of the static object with placed coordinates added
     };
 

@@ -40,6 +40,7 @@ class Gameboard {
         } else {
             const name = this.board[coordinates[0]][coordinates[1]]; // store before change it to "hit"
             this.board[coordinates[0]][coordinates[1]] = "hit";
+            this.lastHit = coordinates;
             const target = Object.keys(this).find((key) => this[key].name === name);
             this[target].hit(); // ship class
             this.checkIsSunk(target);
@@ -70,6 +71,10 @@ class Gameboard {
         }
     };
 
+    lastHit = [];
+
+    attackQueue = [];
+
     getAvailableMoves = () => {
         const randomCoordinates = () => {
             const randomRow = Math.floor(Math.random() * 10);
@@ -86,6 +91,42 @@ class Gameboard {
             }
             return tryCoordinates;
         };
+
+        const evaluateAdjacents = (move) => {
+            if (move[0] < 0 || move[0] > 9 || move[1] < 0 || move[1] > 9) return false;
+            if (this.board[move[0]][move[1]] === "hit"
+                || this.board[move[0]][move[1]] === "miss") {
+                return false;
+            }
+            return true;
+        };
+
+        const getAdjacents = (move) => {
+            const x = move[0];
+            const y = move[1];
+            const x1 = x - 1;
+            const x2 = x + 1;
+            const y1 = y - 1;
+            const y2 = y + 1;
+            return [[x, y1], [x, y2], [x1, y], [x2, y]];
+        };
+
+        if (this.lastHit.length !== 0) {
+            const lastCoordinate = this.lastHit;
+            this.lastHit = [];
+            const adjacents = getAdjacents(lastCoordinate);
+            adjacents.forEach((adjacent) => {
+                if (evaluateAdjacents(adjacent)) {
+                    this.attackQueue.push(adjacent);
+                }
+            });
+        }
+
+        if (this.attackQueue.length !== 0) {
+            const next = this.attackQueue.shift();
+            return next;
+        }
+
         const availableMove = evaluateMoves();
         return availableMove;
     };
