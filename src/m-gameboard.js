@@ -33,7 +33,8 @@ class Gameboard {
     };
 
     recieveAttack = (coordinates) => {
-        if (this.board[coordinates[0]][coordinates[1]] === "miss" || this.board[coordinates[0]][coordinates[1]] === "hit") return;
+        if (this.board[coordinates[0]][coordinates[1]] === "miss"
+            || this.board[coordinates[0]][coordinates[1]] === "hit") return;
         if (this.board[coordinates[0]][coordinates[1]] === "water") {
             this.board[coordinates[0]][coordinates[1]] = "miss";
         } else {
@@ -79,7 +80,8 @@ class Gameboard {
 
         const evaluateMoves = () => {
             const tryCoordinates = randomCoordinates();
-            if (this.board[tryCoordinates[0]][tryCoordinates[1]] === "hit" || this.board[tryCoordinates[0]][tryCoordinates[1]] === "miss") {
+            if (this.board[tryCoordinates[0]][tryCoordinates[1]] === "hit"
+                || this.board[tryCoordinates[0]][tryCoordinates[1]] === "miss") {
                 return evaluateMoves();
             }
             return tryCoordinates;
