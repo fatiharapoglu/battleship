@@ -2,9 +2,9 @@ import interact from "interactjs";
 import { Player } from "./m-player";
 
 class DOM {
-    static coordinatesWithIDs = {};
+    static coordinatesWithIDs = {}; // this helps connect the actual board with DOM board. IDs with coordinates.
 
-    static getName = () => {
+    static getName = () => { // starting screen, asking name and start initialize game when clicking start
         const modalDOM = document.querySelector(".start");
         const nameInputDOM = document.querySelector("#input-name");
         const startBtnDOM = document.querySelector("#start-game");
@@ -20,16 +20,16 @@ class DOM {
         });
     };
 
-    static initGame = (playerName) => {
-        this.createGameboards();
+    static initGame = (playerName) => { // wrapper function of related start game functions
+        this.createGameboards(); // creates 3 gameboards
 
-        const players = this.createPlayers(playerName);
+        const players = this.createPlayers(playerName); // creates 2 players
         const player = players.human;
         const computer = players.AI;
 
-        computer.board.placeShipsForAI();
-        this.placeShipsForPlayer(player, computer);
-        this.initEventListenerForSquares(player, computer);
+        computer.board.placeShipsForAI(); // ai randomly places ships
+        this.placeShipsForPlayer(player, computer); // initialize place ship for player
+        this.initEventListenerForSquares(player, computer); // initialize attacking when clicking squares
     };
 
     static placeShipsForPlayer = (player, computer) => {
@@ -39,6 +39,7 @@ class DOM {
 
         const coordinatesWithShips = {};
 
+        // interactjs drag drop listener function
         const dragMoveListener = (event) => {
             const target = event.target;
             const x = (parseFloat(target.getAttribute("data-x")) || 0) + event.dx;
@@ -48,8 +49,9 @@ class DOM {
             target.setAttribute("data-y", y);
         };
 
+        // finding starting point from end point when dropped
         const findStartPoint = (coordinates, direction, shipName) => {
-            const array = JSON.parse(coordinates);
+            const array = JSON.parse(coordinates); // string to aray
 
             let length;
             switch (shipName) {
@@ -78,10 +80,11 @@ class DOM {
             return [array[0], startPoint];
         };
 
+        // interactjs drag-drop inner functions
         interact(".dropzone").dropzone({
             accept: ".draggable",
             overlap: 0.19,
-            ondrop(event) {
+            ondrop(event) { // when dropped
                 let endPoint = event.target.dataset.id;
                 const shipName = event.relatedTarget.classList[0];
                 const direction = event.relatedTarget.classList[2];
@@ -116,7 +119,7 @@ class DOM {
                 autoScroll: true,
                 listeners: { move: dragMoveListener },
             })
-            .on("doubletap", (event) => {
+            .on("doubletap", (event) => { // when doubletap, rotates ships
                 const width = event.currentTarget.style.width;
                 const height = event.currentTarget.style.height;
                 event.currentTarget.style.width = height;
@@ -126,12 +129,13 @@ class DOM {
             });
 
         const placeShipsBtnDOM = document.querySelector("#place-ships-btn");
-        placeShipsBtnDOM.addEventListener("click", () => {
+        placeShipsBtnDOM.addEventListener("click", () => { // clicking start checks validity first
             if (this.checkPlaceShipsValidity(coordinatesWithShips) === false) {
-                this.snackbar("Something's wrong with your ship placement, Admiral.");
+                this.snackbar("Something's wrong with your ship placement, Admiral."); // throws error
             } else {
                 const occupiedCoordinatesWithShips = this.checkPlaceShipsValidity(coordinatesWithShips);
 
+                // if valid, places each ship
                 Object.keys(occupiedCoordinatesWithShips).forEach((ship) => {
                     const direction = occupiedCoordinatesWithShips[ship].direction;
                     const coordinates = occupiedCoordinatesWithShips[ship].startPoint;
@@ -139,6 +143,7 @@ class DOM {
                     player.board.placeShips(coordinates, player.board[name], direction);
                 });
 
+                // then renders everything and starts game
                 this.renderGameboardForPlayer(player);
                 this.renderGameboardForAI(computer);
                 this.renderShipImages(occupiedCoordinatesWithShips);
@@ -149,23 +154,23 @@ class DOM {
         });
     };
 
-    static checkPlaceShipsValidity = (coordinatesWithShips) => {
-        if (Object.keys(coordinatesWithShips).length <= 4) return false;
+    static checkPlaceShipsValidity = (coordinatesWithShips) => { // validity check
+        if (Object.keys(coordinatesWithShips).length <= 4) return false; // if < 5 no need to check
 
         const placeShipsModal = document.querySelector("#place-ships-modal");
         const dropzones = placeShipsModal.querySelectorAll(".dropzone");
-        const occupiedCoordinates = [];
-        const occupiedCoordinatesWithShips = coordinatesWithShips;
+        const occupiedCoordinates = []; // coordinates array
+        const occupiedCoordinatesWithShips = coordinatesWithShips; // new object of the static object
 
         Object.keys(occupiedCoordinatesWithShips).forEach((key) => {
-            occupiedCoordinatesWithShips[key].coordinates = [];
+            occupiedCoordinatesWithShips[key].coordinates = []; // first create empty array for each ship
         });
 
         dropzones.forEach((dropzone) => {
             const condition = Object.keys(coordinatesWithShips).filter(
                 (key) => JSON.stringify(coordinatesWithShips[key].startPoint)
                   === JSON.stringify(JSON.parse(dropzone.dataset.id)),
-            );
+            ); // double JSON method because it needs to be exact format for filter method
 
             if (condition.length !== 0) {
                 const shipObj = coordinatesWithShips[condition[0]];
@@ -186,13 +191,14 @@ class DOM {
             }
         });
 
+        // finds duplicate in occupied array
         const duplicates = occupiedCoordinates.filter(
             (sub, index, self) => index !== self.findIndex((t) => t === sub),
         );
-        if (duplicates.length !== 0 || occupiedCoordinates.length !== 17) {
+        if (duplicates.length !== 0 || occupiedCoordinates.length !== 17) { // double check if it's valid
             return false;
         }
-        return occupiedCoordinatesWithShips;
+        return occupiedCoordinatesWithShips; // returns copy of the static object with placed coordinates added
     };
 
     static initEventListenerForSquares = (player, computer) => {
@@ -201,7 +207,7 @@ class DOM {
             if (square.textContent !== "") return;
             const ID = square.dataset.id;
             const coordinates = this.findCoordinates(ID);
-            this.playOneRoundForEach(player, computer, coordinates);
+            this.playOneRoundForEach(player, computer, coordinates); // actual playing rounds
         }));
     };
 
@@ -236,13 +242,13 @@ class DOM {
         }
     };
 
-    static createPlayers = (name) => {
+    static createPlayers = (name) => { // gets called one time
         const human = new Player(name);
         const AI = new Player("AI");
         return { human, AI };
     };
 
-    static renderGameboardForPlayer = (player) => {
+    static renderGameboardForPlayer = (player) => { // working with textContent, but text is hidden
         const playerBoard = player.board.board;
         const squares = document.querySelectorAll(".player-square");
         squares.forEach((square) => {
@@ -272,7 +278,7 @@ class DOM {
         });
     };
 
-    static renderGameboardForAI = (computer) => {
+    static renderGameboardForAI = (computer) => { // same with render for player, but hides ships
         const computerBoard = computer.board.board;
         const squares = document.querySelectorAll(".AI-square");
         squares.forEach((square) => {
@@ -300,7 +306,7 @@ class DOM {
         });
     };
 
-    static renderShipImages = (occupiedCoordinatesWithShips) => {
+    static renderShipImages = (occupiedCoordinatesWithShips) => { // ship images divided equally for each ship's length
         const shipObj = occupiedCoordinatesWithShips;
         const carrierDirection = shipObj.carrier.direction;
         const battleshipDirection = shipObj.battleship.direction;
@@ -357,19 +363,21 @@ class DOM {
         });
     };
 
-    static findCoordinates = (ID) => this.coordinatesWithIDs[ID];
+    static findCoordinates = (ID) => this.coordinatesWithIDs[ID]; // finding coordinates with data ID
 
-    static findID = (coordinates) => {
+    static findID = (coordinates) => { // finding data ID with coordinates
         const ID = Object.keys(this.coordinatesWithIDs).find((key) => this.coordinatesWithIDs[key] === coordinates);
         return ID;
     };
 
-    static playOneRoundForEach = async (player, computer, coordinates) => {
+    static playOneRoundForEach = async (player, computer, coordinates) => { // note async
         const squares = document.querySelectorAll(".AI-square");
 
+        // player attacks clicked coordinates
         Player.playerAttacks(computer, coordinates);
         this.renderGameboardForAI(computer);
 
+        // and then AI turn
         squares.forEach((square) => {
             square.classList.add("disabled"); // disabled class adds pointer-events:none
         });
@@ -386,11 +394,11 @@ class DOM {
     };
 
     static infoHelper = { // typewriter helper object
-        queue: [],
+        queue: [], // queued texts stacked here for display
         isRunning: false,
     };
 
-    static info = (text) => {
+    static info = (text) => { // improved with infoHelper object because of text announcer overlap problem
         const infoDOM = document.querySelector("#announcer");
         this.infoHelper.queue.push(text);
         const typeWriter = () => {
@@ -427,14 +435,14 @@ class DOM {
         }, 3000);
     };
 
-    static endGame = (text, winner) => {
+    static endGame = (text, winner) => { // ending game modals and disabling squares
         const endModalDOM = document.querySelector(".end-game");
         const squares = document.querySelectorAll(".AI-square");
         setTimeout(() => {
             squares.forEach((square) => {
                 square.classList.add("disabled");
             });
-        }, 300);
+        }, 300); // settimeout method because AI turn functions interferes with making it active again
         let winnerText;
         if (winner === "AI") {
             winnerText = "Computer wins...";
