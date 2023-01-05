@@ -3,7 +3,7 @@ import { Ship } from "./m-ship";
 
 class Gameboard {
     constructor(playerName) {
-        this.board = Array.from({ length: 10 }, () => Array(10).fill("water"));
+        this.board = Array.from({ length: 10 }, () => Array(10).fill("water")); // 10x10 matrix filled with water
         this.carrier = new Ship(5, "carrier");
         this.battleship = new Ship(4, "battleship");
         this.destroyer = new Ship(3, "destroyer");
@@ -12,7 +12,7 @@ class Gameboard {
         this.player = playerName;
     }
 
-    placeShips = (coordinates, ship, direction) => {
+    placeShips = (coordinates, ship, direction) => { // fill methods for placing ships in array
         const placed = coordinates;
         const width = ship.length;
         const placeholder = ship.name;
@@ -38,10 +38,10 @@ class Gameboard {
         if (this.board[coordinates[0]][coordinates[1]] === "water") {
             this.board[coordinates[0]][coordinates[1]] = "miss";
         } else {
-            const name = this.board[coordinates[0]][coordinates[1]];
+            const name = this.board[coordinates[0]][coordinates[1]]; // store before change it to "hit"
             this.board[coordinates[0]][coordinates[1]] = "hit";
             const target = Object.keys(this).find((key) => this[key].name === name);
-            this[target].hit();
+            this[target].hit(); // ship class
             this.checkIsSunk(target);
             this.checkIsGame();
         }
@@ -60,7 +60,7 @@ class Gameboard {
         }
     };
 
-    checkIsGame = () => {
+    checkIsGame = () => { // if every ship is sunk, initialize game over
         if (this.carrier.isSunk === true
             && this.battleship.isSunk === true
             && this.destroyer.isSunk === true
@@ -82,17 +82,16 @@ class Gameboard {
             const tryCoordinates = randomCoordinates();
             if (this.board[tryCoordinates[0]][tryCoordinates[1]] === "hit"
                 || this.board[tryCoordinates[0]][tryCoordinates[1]] === "miss") {
-                return evaluateMoves();
+                return evaluateMoves(); // recurring until it's valid
             }
             return tryCoordinates;
         };
         const availableMove = evaluateMoves();
-
         return availableMove;
     };
 
-    placeShipsForAI = () => {
-        const getRandomCoordinates = () => this.getAvailableMoves();
+    placeShipsForAI = () => { // this is not the best way to handle place ships but works, might change it later
+        const getRandomCoordinates = () => this.getAvailableMoves(); // gets random coordinates with another method
         const getRandomDirection = () => {
             const number = Math.floor(Math.random() * 2);
             return number === 1 ? "horizontal" : "vertical";
@@ -122,7 +121,7 @@ class Gameboard {
             this.board = Array.from({ length: 10 }, () => Array(10).fill("water")); // resets board
             return this.placeShipsForAI(); // and try again
         }
-        return true;
+        return true; // if valid
     };
 
     endGame = () => {
