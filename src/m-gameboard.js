@@ -98,10 +98,10 @@ class Gameboard {
                 || this.board[move[0]][move[1]] === "miss") {
                 return false;
             }
-            return true;
+            return true; // valid if none of the above
         };
 
-        const getAdjacents = (move) => {
+        const getAdjacents = (move) => { // creates 4 moves for every direction based on last hit
             const x = move[0];
             const y = move[1];
             const x1 = x - 1;
@@ -111,23 +111,23 @@ class Gameboard {
             return [[x, y1], [x, y2], [x1, y], [x2, y]];
         };
 
-        if (this.lastHit.length !== 0) {
-            const lastCoordinate = this.lastHit;
-            this.lastHit = [];
+        if (this.lastHit.length !== 0) { // if last hit was success
+            const lastCoordinate = this.lastHit; // store last hit
+            this.lastHit = []; // and reset to none
             const adjacents = getAdjacents(lastCoordinate);
-            adjacents.forEach((adjacent) => {
-                if (evaluateAdjacents(adjacent)) {
-                    this.attackQueue.push(adjacent);
+            adjacents.forEach((adjacent) => { // for each adjacent coordinate
+                if (evaluateAdjacents(adjacent)) { // check validity
+                    this.attackQueue.push(adjacent); // add to queue if valid
                 }
             });
         }
 
-        if (this.attackQueue.length !== 0) {
-            const next = this.attackQueue.shift();
-            return next;
+        if (this.attackQueue.length !== 0) { // if queue is not empty
+            const next = this.attackQueue.shift(); // get the first one from array
+            return next; // and use it
         }
 
-        const availableMove = evaluateMoves();
+        const availableMove = evaluateMoves(); // if no last hit or queue is empty, attack randomly
         return availableMove;
     };
 
