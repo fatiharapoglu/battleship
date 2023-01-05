@@ -83,7 +83,7 @@ class DOM {
         // interactjs drag-drop inner functions
         interact(".dropzone").dropzone({
             accept: ".draggable",
-            overlap: 0.19,
+            overlap: 0.05,
             ondrop(event) { // when dropped
                 let endPoint = event.target.dataset.id;
                 const shipName = event.relatedTarget.classList[0];
@@ -98,16 +98,6 @@ class DOM {
             .draggable({
                 inertia: true,
                 modifiers: [
-                    interact.modifiers.snap({
-                        targets: [
-                            interact.snappers.grid({ x: 51, y: 51 }),
-                        ],
-                        range: Infinity,
-                        offset: { x: 5, y: 5 },
-                        relativePoints: [
-                            { x: 0, y: 0 },
-                        ],
-                    }),
                     interact.modifiers.restrictRect({
                         restriction: ".place-ships",
                         elementRect: {
