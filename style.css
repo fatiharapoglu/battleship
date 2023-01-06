@@ -146,7 +146,7 @@ body {
   grid-template-columns: repeat(10, 50px);
   grid-template-rows: repeat(10, 50px);
   grid-gap: 1px;
-  cursor: progress;
+  cursor: not-allowed;
   position: relative;
 }
 .boards .AI-board .enemy-board {
@@ -181,7 +181,7 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 30vh;
+  width: 500px;
 }
 .start input {
   height: 30px;
@@ -194,6 +194,7 @@ body {
 }
 .start button {
   background-color: inherit;
+  color: var(--js);
   border: none;
   border-radius: 10px;
   padding: 25px;
@@ -201,7 +202,7 @@ body {
   cursor: pointer;
 }
 .start button:hover {
-  color: var(--js);
+  color: var(--hit);
 }
 .start h1 {
   font-size: 1.7rem;
@@ -291,6 +292,7 @@ body {
 }
 .place-ships button {
   background-color: inherit;
+  color: var(--js);
   border: var(--border);
   padding: 10px;
   font-size: 1.5rem;
@@ -302,7 +304,7 @@ body {
   cursor: pointer;
 }
 .place-ships button:hover {
-  color: var(--js);
+  color: var(--hit);
 }
 .place-ships .double-click-info {
   position: absolute;
@@ -376,8 +378,8 @@ body {
 }
 
 .end-game {
-  width: 40vh;
-  height: 20vh;
+  width: 400px;
+  height: 200px;
   background-color: var(--background-secondary);
   font-size: 2rem;
   display: flex;
@@ -434,8 +436,11 @@ body {
 .footer .github-icon:hover {
   transform: rotate(360deg);
 }
-.footer a:hover {
+.footer a {
   color: var(--js);
+}
+.footer a:hover {
+  color: var(--hit);
 }
 
 .snackbar {
