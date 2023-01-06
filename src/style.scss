@@ -165,7 +165,7 @@ body {
         grid-template-columns: repeat(10, 50px);
         grid-template-rows: repeat(10, 50px);
         grid-gap: 1px;
-        cursor: progress;
+        cursor: not-allowed;
         position: relative;
 
         .enemy-board {
@@ -204,7 +204,7 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 30vh;
+    width: 500px;
 
     input {
         height: 30px;
@@ -218,6 +218,7 @@ body {
 
     button {
         background-color: inherit;
+        color: var(--js);
         border: none;
         border-radius: 10px;
         padding: 25px;
@@ -226,7 +227,7 @@ body {
     }
 
     button:hover {
-        color: var(--js);
+        color: var(--hit);
     }
 
     h1 {
@@ -331,6 +332,7 @@ body {
 
     button {
         background-color: inherit;
+        color: var(--js);
         border: var(--border);
         padding: 10px;
         font-size: 1.5rem;
@@ -343,7 +345,7 @@ body {
     }
 
     button:hover {
-        color: var(--js);
+        color: var(--hit);
     }
 
     .double-click-info {
@@ -422,8 +424,8 @@ body {
 }
 
 .end-game {
-    width: 40vh;
-    height: 20vh;
+    width: 400px;
+    height: 200px;
     background-color: var(--background-secondary);
     font-size: 2rem;
     display: flex;
@@ -483,8 +485,12 @@ body {
         transform: rotate(360deg);
     }
 
-    a:hover {
+    a {
         color: var(--js);
+    }
+
+    a:hover {
+        color: var(--hit);
     }
 }
 

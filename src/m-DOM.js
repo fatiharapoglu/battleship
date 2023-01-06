@@ -432,7 +432,7 @@ class DOM {
             squares.forEach((square) => {
                 square.classList.add("disabled");
             });
-        }, 300); // settimeout method because AI turn functions interferes with making it active again
+        }, 750); // settimeout method because AI turn functions interferes with making it active again
         let winnerText;
         if (winner === "AI") {
             winnerText = "Computer wins...";
