@@ -1,4 +1,4 @@
-# Weather API
+# Battleship
 
 Created with **HTML**, **SCSS** and **JavaScript**.
 
