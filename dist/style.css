@@ -431,16 +431,20 @@ body {
   height: 25px;
   padding-left: 10px;
   padding: 0 10px;
-  transition: transform 1s ease-in-out;
+  transition: transform 0.5s ease-in-out;
 }
 .footer .github-icon:hover {
   transform: rotate(360deg);
 }
 .footer a {
   color: var(--js);
+  font-size: 1.5rem;
 }
 .footer a:hover {
   color: var(--hit);
+}
+.footer span {
+  font-size: 1.5rem;
 }
 
 .snackbar {

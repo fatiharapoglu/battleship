@@ -1,9 +1,30 @@
-# Battleship (Jest TDD project)
+# Weather API
 
-[The Odin Project](https://www.theodinproject.com/lessons/node-path-javascript-battleship)'s node path javascript battleship game project.
+Created with **HTML**, **SCSS** and **JavaScript**.
 
-Created with HTML, SCSS, JS, interactjs, Jest and webpack.
+⮕ [Live preview](https://fatiharapoglu.github.io/battleship/)
 
-[Click for live preview](https://fatiharapoglu.github.io/battleship)
+## Features
 
-![RPS](dist/assets/readme.png)
+-   Smart AI that plays similarly to a human, also without cheating.
+-   Ship placement supports drag and drop for better user experience.
+-   Announcer text that helps and informs you with certain situations.
+-   Snackbar alerts when there is an error or warning.
+-   Special texts such as when first ship is sunk and the game is over.
+
+## Helper Dependencies
+
+-   [Webpack](https://webpack.js.org/) for bundling
+-   [Jest](https://jestjs.io/) for testing
+-   [Interact.js](https://interactjs.io/) for drag & drops
+-   [Sass](https://sass-lang.com/) for SCSS
+-   [Eslint](https://eslint.org/) for linting
+-   [Prettier](https://prettier.io/) for formatting
+
+## Roadmap
+
+-   Make design responsive.
+
+## How It Looks
+
+![ss](./dist/assets/readme.png)
