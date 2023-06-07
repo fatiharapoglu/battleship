@@ -21,10 +21,16 @@ Created with **HTML**, **SCSS** and **JavaScript**.
 -   [Eslint](https://eslint.org/) for linting
 -   [Prettier](https://prettier.io/) for formatting
 
-## Roadmap
-
--   Make design responsive.
-
 ## How It Looks
 
 ![ss](./dist/assets/readme.png)
+
+## Contact
+
+⮕ [Portfolio](https://fatiharapoglu.dev)
+
+⮕ [LinkedIn](https://www.linkedin.com/in/fatiharapoglu/)
+
+## License
+
+Distributed under the [MIT](https://choosealicense.com/licenses/mit/) License.

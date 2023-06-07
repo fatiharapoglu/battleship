@@ -34,6 +34,7 @@ a {
 body {
   min-height: 100vh;
   background-color: var(--background-primary);
+  position: relative;
 }
 
 .boards {
@@ -508,6 +509,15 @@ body {
   to {
     bottom: 0;
     opacity: 0;
+  }
+}
+@media (width <= 750px) {
+  body {
+    min-width: min-content;
+    min-height: auto;
+  }
+  .boards {
+    height: 100vh;
   }
 }
 
